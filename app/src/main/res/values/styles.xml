@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bold -->
+    <style name="tv_b_16" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/nanumsquare_bold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="tv_b_14" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/nanumsquare_bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="tv_b_10" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/nanumsquare_bold</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+
+    <!-- Regular  -->
+    <style name="tv_12" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/nanumsquare</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="tv_10" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/nanumsquare</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+</resources>
