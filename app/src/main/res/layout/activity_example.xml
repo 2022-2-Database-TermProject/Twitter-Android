@@ -6,7 +6,7 @@
 
 
     <EditText
-        android:id="@+id/id_et"
+        android:id="@+id/example_id_et"
         style="@style/tv_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,21 +17,21 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <EditText
-        android:id="@+id/pw_et"
+        android:id="@+id/example_pw_et"
         style="@style/tv_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
         android:hint="비밀번호 입력"
-        app:layout_constraintTop_toBottomOf="@id/id_et"/>
+        app:layout_constraintTop_toBottomOf="@id/example_id_et"/>
 
     <Button
-        android:id="@+id/home_btn"
+        android:id="@+id/example_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
         android:text="검색"
-        app:layout_constraintTop_toBottomOf="@id/pw_et" />
+        app:layout_constraintTop_toBottomOf="@id/example_pw_et" />
 </androidx.constraintlayout.widget.ConstraintLayout>
