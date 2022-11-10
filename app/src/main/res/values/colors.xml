@@ -19,6 +19,9 @@
 
     <color name="deep_gray">#B0B0B0</color>
     <color name="light_gray">#F0F3F4</color>
+    <color name="blue_gray">#3E4B5A</color>
+
+    <color name="blue">#1D9BF0</color>
 
     <!-- 기타 -->
     <color name="white_dark">#E1E2E1</color>

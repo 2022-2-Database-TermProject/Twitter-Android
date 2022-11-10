@@ -2,8 +2,8 @@ package com.database_termproject.twitter.utils
 
 class GlobalApplication {
     companion object{
-        const val USER = "root";          // user 이름
-        const val PASSWORD = "021019@wa"; // password
-        const val URL = "jdbc:mysql://192.168.35.115/mydb"; // url
+        const val USER = "admin";          // user 이름
+        const val PASSWORD = "twittertwitter"; // password
+        const val URL = "jdbc:mysql://team4.cvv6ywlhnvcx.ap-northeast-2.rds.amazonaws.com:3306/Twitter"; // url
     }
 }

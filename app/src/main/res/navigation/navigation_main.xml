@@ -8,6 +8,9 @@
         android:id="@+id/homeFragment"
         android:name="com.database_termproject.twitter.ui.main.home.HomeFragment"
         android:label="homeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

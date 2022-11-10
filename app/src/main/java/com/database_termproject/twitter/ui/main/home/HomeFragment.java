@@ -2,6 +2,10 @@ package com.database_termproject.twitter.ui.main.home;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.databinding.FragmentHomeBinding;
 

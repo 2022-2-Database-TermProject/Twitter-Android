@@ -30,8 +30,10 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
     protected void initAfterBinding() {
        // 유저 조회
         binding.exampleGetBtn.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View view) {
+                showToast("hello");
                 new GetUserAsyncTask().execute();
             }
         });
