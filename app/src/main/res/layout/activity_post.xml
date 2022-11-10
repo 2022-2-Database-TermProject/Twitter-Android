@@ -87,7 +87,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/newpost_profile_iv"
                 app:layout_constraintBottom_toBottomOf="@id/newpost_profile_iv" />
-
+ㄴ
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/newpost_album_rv"
                 android:layout_width="0dp"
