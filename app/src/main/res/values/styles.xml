@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Extra Bole   -->
+    <style name="tv_eb_16" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/nanumsquare_extrabold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
     <!-- Bold -->
     <style name="tv_b_16" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/nanumsquare_bold</item>

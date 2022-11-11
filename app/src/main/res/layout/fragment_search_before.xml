@@ -23,8 +23,10 @@
         android:hint="트위터 검색"
         android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
         android:layout_marginHorizontal="15dp"
-        app:layout_constraintTop_toTopOf="@id/search_top_v"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@id/search_top_v"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/search_cancel_tv"/>

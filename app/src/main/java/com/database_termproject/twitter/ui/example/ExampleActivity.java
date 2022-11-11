@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import com.database_termproject.twitter.databinding.ActivityExampleBinding;
 import com.database_termproject.twitter.ui.BaseActivity;
+import com.database_termproject.twitter.ui.main.MainActivity;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,6 +30,14 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
 
     @Override
     protected void initAfterBinding() {
+        // 메인 액티비티로 이동
+        binding.exampleHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startNextActivity(MainActivity.class);
+            }
+        });
+
        // 유저 조회
         binding.exampleGetBtn.setOnClickListener(new View.OnClickListener(){
 

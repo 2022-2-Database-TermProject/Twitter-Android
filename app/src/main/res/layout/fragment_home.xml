@@ -19,7 +19,7 @@
         android:layout_height="30dp"
         android:src="@drawable/ic_twitter"
         android:elevation="10dp"
-        app:layout_constraintTop_toTopOf="@id/home_top_v"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@id/home_top_v"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
