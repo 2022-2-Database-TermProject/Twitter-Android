@@ -1,9 +1,11 @@
 package com.database_termproject.twitter.utils
 
+import com.database_termproject.twitter.BuildConfig
+
 class GlobalApplication {
     companion object{
-        const val USER = "root";          // user 이름
-        const val PASSWORD = "021019@wa"; // password
-        const val URL = "jdbc:mysql://192.168.35.115/mydb"; // url
+        const val USER = BuildConfig.USER;          // user 이름
+        const val PASSWORD = BuildConfig.PASSWORD; // password
+        const val URL = BuildConfig.URL; // url
     }
 }

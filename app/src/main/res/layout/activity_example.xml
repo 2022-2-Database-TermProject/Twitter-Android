@@ -5,6 +5,17 @@
     android:layout_height="match_parent">
 
 
+    <Button
+        android:id="@+id/example_home_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:text="메인으로 이동"
+        app:layout_constraintBottom_toTopOf="@id/example_id_et"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <EditText
         android:id="@+id/example_id_et"
         style="@style/tv_12"

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Top -->
+    <View
+        android:id="@+id/search_top_v"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/bg_white_rectangle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/search_et"
+        style="@style/tv_b_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_search"
+        android:hint="트위터 검색"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/search_top_v"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/search_cancel_tv"/>
+
+    <TextView
+        android:id="@+id/search_cancel_tv"
+        style="@style/tv_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:text="취소"
+        app:layout_constraintTop_toTopOf="@id/search_et"
+       app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 최근 검색어 -->
+    <TextView
+        android:id="@+id/search_recent_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최근 검색어"
+        style="@style/tv_b_16"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/search_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/search_remove_iv"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintTop_toTopOf="@id/search_recent_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/search_recent_title_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="15dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recent_search_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/item_search"
+        android:layout_marginStart="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/search_recent_title_tv"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

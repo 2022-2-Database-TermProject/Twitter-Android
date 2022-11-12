@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 public abstract class BaseFragment<F extends ViewBinding> extends Fragment {
@@ -44,4 +46,7 @@ public abstract class BaseFragment<F extends ViewBinding> extends Fragment {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    public NavController findNavController(){
+       return  NavHostFragment.findNavController(this);
+    }
 }

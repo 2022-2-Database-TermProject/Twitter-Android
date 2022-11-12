@@ -13,6 +13,9 @@
         android:id="@+id/searchFragment"
         android:name="com.database_termproject.twitter.ui.main.search.SearchFragment"
         android:label="searchFragment">
+        <action
+            android:id="@+id/action_searchFragment_to_searchBeforeFragment"
+            app:destination="@id/searchBeforeFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookmarkFragment"
@@ -23,5 +26,21 @@
         android:id="@+id/mypageFragment"
         android:name="com.database_termproject.twitter.ui.main.mypage.MypageFragment"
         android:label="mypageFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/searchBeforeFragment"
+        android:name="com.database_termproject.twitter.ui.main.search.SearchBeforeFragment"
+        android:label="SearchBeforeFragment" >
+        <action
+            android:id="@+id/action_searchBeforeFragment_to_searchAfterFragment"
+            app:destination="@id/searchAfterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchAfterFragment"
+        android:name="com.database_termproject.twitter.ui.main.search.SearchAfterFragment"
+        android:label="SearchAfterFragment" >
+        <argument
+            android:name="search_word"
+            app:argType="string" />
     </fragment>
 </navigation>
