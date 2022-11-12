@@ -4,43 +4,25 @@ import android.Manifest;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.database_termproject.twitter.R;
 import com.database_termproject.twitter.databinding.ActivityPostBinding;
 import com.database_termproject.twitter.ui.BaseActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.normal.TedPermission;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.IntPredicate;
-
-import gun0912.tedimagepicker.builder.TedImagePicker;
-import gun0912.tedimagepicker.builder.listener.OnMultiSelectedListener;
 
 public class PostActivity extends BaseActivity<ActivityPostBinding> {
     int REQUEST_CODE = 999;
