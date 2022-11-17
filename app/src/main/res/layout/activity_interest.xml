@@ -53,7 +53,7 @@
         android:id="@+id/finishbutton"
         android:layout_width="70dp"
         android:layout_height="48dp"
-        android:background="@drawable/bg_black_circle_btn"
+        android:background="@drawable/bg_black_circle"
         android:text="완료"
         style="@style/tv_16"
         android:textColor="@color/white"

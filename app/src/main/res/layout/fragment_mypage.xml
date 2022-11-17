@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,8 @@
                     android:id="@+id/back_image"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:src="@drawable/bg_blue_square" />
+                    android:src="@drawable/bg_blue_square"
+                    tools:ignore="MissingConstraints" />
 
                 <ImageView
                     android:id="@+id/mypage_user_profile"
@@ -38,7 +40,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/mypage_user_nicname"
+                    android:id="@+id/mypage_user_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="넷플릭스"
@@ -49,9 +51,52 @@
                     android:textSize="20dp"
                     style="@style/tv_b_16" />
 
+                <TextView
+                    android:id="@+id/mypage_user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\@netflix"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mypage_user_nickname"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="5dp"/>
 
+                <TextView
+                    android:id="@+id/registration_date"
+                    style="@style/tv_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableLeft="@drawable/ic_mapping"
+                    android:gravity="center"
+                    android:text=" 대한민국"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mypage_user_id"
+                    android:layout_marginStart="26dp" />
 
+                <TextView
+                    style="@style/tv_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text=" 1 팔로잉 0 팔로워"
+                    app:layout_constraintTop_toBottomOf="@+id/registration_date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="26dp" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/tv_b_14"
+                    android:layout_width="109dp"
+                    android:layout_height="39dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginEnd="26dp"
+                    android:background="@drawable/bg_check_not_selection"
+                    android:text="프로필 수정"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -88,10 +133,5 @@
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
