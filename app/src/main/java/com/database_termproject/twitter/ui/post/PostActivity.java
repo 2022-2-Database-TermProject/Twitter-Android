@@ -1,10 +1,17 @@
 package com.database_termproject.twitter.ui.post;
 
+import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
+import static com.database_termproject.twitter.utils.GlobalApplication.URL;
+import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +27,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.IntPredicate;
 
 public class PostActivity extends BaseActivity<ActivityPostBinding> {
@@ -34,6 +49,8 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
 
     String userId = "yusin";
 
+    PostAlbumRVAdapter postAlbumRVAdapter = null;
+
     @Override
     protected ActivityPostBinding getBinding() {
         return ActivityPostBinding.inflate(getLayoutInflater());
@@ -44,7 +61,11 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setMyClickListener();
+        initRV();
     }
 
     private void setMyClickListener() {
@@ -62,6 +83,11 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
             public void onClick(View view) {
                 // 이미지 업로드, 내용 validation
                 // 이미지 업로드 끝나면, JDBC 쿼리문 날리기 insert into post ~~, file ~~
+                // Test
+                HashMap<String, String> params = new HashMap<>();
+                params.put("user_name", "username");
+                params.put("content", "__content");
+                new UploadPostAsyncTask().execute(params);
             }
         });
 
@@ -71,6 +97,19 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
                 checkPermission();
             }
         });
+    }
+
+    private void initRV(){
+        postAlbumRVAdapter = new PostAlbumRVAdapter(this);
+        postAlbumRVAdapter.setMyClickListener(new PostAlbumRVAdapter.MyItemClickListener(){
+
+            @Override
+            public void onDeleted(@NonNull ArrayList<Uri> list) {
+                uriList.clear();
+                uriList.addAll(list);
+            }
+        });
+        binding.newpostAlbumRv.setAdapter(postAlbumRVAdapter);
     }
 
     /* 권한 가져오기 */
@@ -119,20 +158,20 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
                 showToast("이미지를 선택하지 않았습니다.");
             } else {// 이미지를 하나라도 선택한 경우
                 if (data.getClipData() == null) {     // 이미지를 하나만 선택한 경우
-                    Log.d("single choice: ", String.valueOf(data.getData()));
                     Uri imageUri = data.getData();
                     uriList.add(imageUri);
 
                 } else {      // 이미지를 여러장 선택한 경우
                     ClipData clipData = data.getClipData();
-                    Log.d("clipData", String.valueOf(clipData.getItemCount()));
 
                     for (int i = 0; i < clipData.getItemCount(); i++) {
                         Uri imageUri = clipData.getItemAt(i).getUri();
                         uriList.add(imageUri);
-                        Log.d("clipData", String.valueOf(clipData.getItemAt(i)));
                     }
                 }
+
+
+                postAlbumRVAdapter.addImages(uriList);
             }
         }
     }
@@ -171,5 +210,38 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         }
     }
 
+    // Post 등록 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class UploadPostAsyncTask extends AsyncTask<HashMap<String, String>, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(HashMap<String, String>... hashMap) {
+            try {
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
+                Statement stmt = connection.createStatement();
+                String sql = "select * from user;";
+                ResultSet resultSet = stmt.executeQuery(sql);
+
+                Log.d("Post", resultSet.toString());
+                while (resultSet.next()) {
+                    Log.d("Result" , "id: " + resultSet.getString("user_id") + "pw: " + resultSet.getString("password"));
+                }
+
+                Log.d("Post", "Post is uploaded");
+            } catch (Exception e) {
+                Log.e("GetUserAsyncTask", "Error reading school information"+ e);
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+
+                this.cancel(true);
+            }
+        }
+    }
 }
