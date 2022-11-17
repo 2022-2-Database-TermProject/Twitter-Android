@@ -13,11 +13,11 @@
         android:menuCategory="secondary"
         android:title="검색" />
     <item
-        android:id="@+id/bookmarkFragment"
+        android:id="@+id/notificationFragment"
         android:enabled="true"
-        android:icon="@drawable/selector_navi_bookmark"
+        android:icon="@drawable/selector_navi_notification"
         android:menuCategory="secondary"
-        android:title="북마크" />
+        android:title="팔로우 요청" />
     <item
         android:id="@+id/mypageFragment"
         android:enabled="true"

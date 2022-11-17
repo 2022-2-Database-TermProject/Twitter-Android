@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp">
+
+    <ImageView
+        android:id="@+id/item_notification_profile_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_gray_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/item_notification_nickname_tv"
+        style="@style/tv_b_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="넷플릭스"
+        app:layout_constraintStart_toEndOf="@id/item_notification_profile_iv"
+        app:layout_constraintTop_toTopOf="@id/item_notification_profile_iv" />
+
+    <TextView
+        android:id="@+id/item_notification_id_tv"
+        style="@style/tv_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\@Netflix"
+        android:textColor="@color/blue_gray"
+        app:layout_constraintStart_toStartOf="@id/item_notification_nickname_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_notification_nickname_tv" />
+
+    <ImageView
+        android:id="@+id/item_notifiction_confirm_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_confirm"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="@id/item_notification_profile_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_notification_profile_iv"
+        app:layout_constraintEnd_toStartOf="@id/item_notifiction_reject_iv" />
+
+    <ImageView
+        android:id="@+id/item_notifiction_reject_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_reject"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@id/item_notification_profile_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_notification_profile_iv"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

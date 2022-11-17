@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 카메라, 저장소 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -16,9 +18,9 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Twitter">
 
         <!-- Splash -->
@@ -33,6 +35,25 @@
         </activity>
 
         <!-- signin -->
+        <activity
+            android:name=".ui.signin.SigninActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.signin.SignUp1Activity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.signin.SignUp2Activity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.signin.InterestActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
         <!-- Main -->
         <activity
@@ -51,22 +72,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.signin.SignUp1Activity"
-                  android:exported="true"
-                  android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.signin.SignUp2Activity"
+        <!--  Edit  -->
+        <activity
+            android:name=".ui.edit.EditActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.signin.InterestActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.signin.SigninActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>

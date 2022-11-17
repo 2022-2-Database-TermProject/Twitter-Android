@@ -18,9 +18,9 @@
             app:destination="@id/searchBeforeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bookmarkFragment"
-        android:name="com.database_termproject.twitter.ui.main.bookmark.BookmarkFragment"
-        android:label="bookmarkFragment">
+        android:id="@+id/notificationFragment"
+        android:name="com.database_termproject.twitter.ui.main.notification.NotificationFragment"
+        android:label="notificationFragment">
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"
