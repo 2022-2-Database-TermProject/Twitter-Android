@@ -33,6 +33,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,6 +50,7 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
     ArrayList<String> imgList = new ArrayList<>();
 
     String userId = "yusin";
+    String content = "";
 
     PostAlbumRVAdapter postAlbumRVAdapter = null;
 
@@ -81,13 +84,9 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         binding.newpostTweetTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 이미지 업로드, 내용 validation
-                // 이미지 업로드 끝나면, JDBC 쿼리문 날리기 insert into post ~~, file ~~
-                // Test
-                HashMap<String, String> params = new HashMap<>();
-                params.put("user_name", "username");
-                params.put("content", "__content");
-                new UploadPostAsyncTask().execute(params);
+                // 포스트 업로드
+                content = binding.newpostContentEt.getText().toString();
+                new UploadPostAsyncTask().execute();
             }
         });
 
@@ -176,6 +175,7 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         }
     }
 
+    String post_id;
     // Firebase에 이미지 올리기
     private void uploadImages(){
         for(Uri uri: uriList){
@@ -199,9 +199,10 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
                         String downloadUri = task.getResult().toString();
                         imgList.add(downloadUri);
 
-
                         if(uri == uriList.get(uriList.size() - 1)){ // 모든 이미지 업로드 완료
                             Log.d("Firebase", imgList.toString());
+                            // 이미지 업로드 쿼리문 실행
+                            new UploadImagesAsyncTask().execute();
                         }
                     }
                 }
@@ -212,19 +213,25 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
 
     // Post 등록 JDBC
     @SuppressLint("StaticFieldLeak")
-    public class UploadPostAsyncTask extends AsyncTask<HashMap<String, String>, Void, Boolean> {
+    public class UploadPostAsyncTask extends AsyncTask<Void, Void, Boolean> {
         @Override
-        protected Boolean doInBackground(HashMap<String, String>... hashMap) {
+        protected Boolean doInBackground(Void... voids) {
             try {
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
-                Statement stmt = connection.createStatement();
-                String sql = "select * from user;";
-                ResultSet resultSet = stmt.executeQuery(sql);
+                LocalDateTime now = LocalDateTime.now();
+                String createAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
 
-                Log.d("Post", resultSet.toString());
-                while (resultSet.next()) {
-                    Log.d("Result" , "id: " + resultSet.getString("user_id") + "pw: " + resultSet.getString("password"));
+                String query = "insert into post (writer_id, content, written_date) values ('" + userId + "','" + content + "','" + createAt + "');";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                preparedStatement.executeUpdate();
+
+                Statement stmt = connection.createStatement();
+                String s1 = "select post_id from post where writer_id = \"" + userId + "\" and written_date=\"" + createAt + "\"";
+                ResultSet rs = stmt.executeQuery(s1);
+                if(rs.next()){
+                    post_id =  rs.getString("post_id");
                 }
 
                 Log.d("Post", "Post is uploaded");
@@ -239,8 +246,48 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-
                 this.cancel(true);
+
+                if(uriList.isEmpty()){ // 이미지 없는 경우,
+                    finish();
+                }else{
+                    uploadImages();
+                }
+            }
+        }
+    }
+
+    // Post 등록 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class UploadImagesAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
+                for(String img: imgList){
+                    String query = "insert into file (post_id, file) values ('" + post_id + "','" + img + "');";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                    preparedStatement.executeUpdate();
+                }
+
+                Log.d("Post", "Post is uploaded");
+            } catch (Exception e) {
+                Log.e("GetUserAsyncTask", "Error reading school information"+ e);
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                this.cancel(true);
+
+
+                finish();
             }
         }
     }

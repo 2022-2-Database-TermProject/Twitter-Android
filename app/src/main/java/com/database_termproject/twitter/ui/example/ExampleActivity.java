@@ -23,6 +23,8 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.transform.Result;
+
 public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
     @Override
     protected ActivityExampleBinding getBinding() {
@@ -35,7 +37,7 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
         binding.exampleHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startNextActivity(EditActivity.class);
+                startNextActivity(MainActivity.class);
             }
         });
 
@@ -78,7 +80,7 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    info.put(resultSet.getString("user_id"), resultSet.getString("password"));
+                    info.put(resultSet.getString("id"), resultSet.getString("pwd"));
                 }
             } catch (Exception e) {
                 Log.e("GetUserAsyncTask", "Error reading school information", e);
@@ -109,7 +111,7 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
             String password = binding.examplePwEt.getText().toString();
 
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-                String query = "SELECT user_id from user where user_id='" + userId + "'";
+                String query = "select id from user where id = \"" + userId + "\"";
 
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
@@ -117,16 +119,13 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
                 if (rs.next()) {
                     result = "Already exist!";
                 }else{
-                    // Email, phone
-                    String email = "hello@gmail.com";
-                    String phone = "010-0000-0000";
+                    // name, age, nickname, region
+                    String age ="18";
+                    String nickname = "hello";
+                    String region = "Korea";
 
-                    // Current date
-                    LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
-
-                    query = "insert into user (user_id, password, email, phone_num, registered_on, public) values ('"+userId + "', '" + password + "', '"
-                            + email + "', '"+
-                            phone +"', '" + now + "', 1)";
+                    query = "insert into user (id, pwd, age, nickname, region_id) values ('"+userId + "', '" + password + "', '"
+                           +age +"', '" + nickname + "','" + region + "')";
 
                     PreparedStatement pstm = connection.prepareStatement(query);
                     pstm.executeUpdate();
@@ -136,6 +135,7 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading school information", e);
             }
+
 
             return result;
         }

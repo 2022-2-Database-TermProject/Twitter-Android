@@ -35,6 +35,25 @@
         </activity>
 
         <!-- signin -->
+        <activity
+            android:name=".ui.signin.SigninActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.signin.SignUp1Activity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.signin.SignUp2Activity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.signin.InterestActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
 
         <!-- Main -->
         <activity
