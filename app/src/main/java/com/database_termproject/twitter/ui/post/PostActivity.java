@@ -1,10 +1,17 @@
 package com.database_termproject.twitter.ui.post;
 
+import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
+import static com.database_termproject.twitter.utils.GlobalApplication.URL;
+import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +27,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.IntPredicate;
 
 public class PostActivity extends BaseActivity<ActivityPostBinding> {
@@ -33,6 +50,9 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
     ArrayList<String> imgList = new ArrayList<>();
 
     String userId = "yusin";
+    String content = "";
+
+    PostAlbumRVAdapter postAlbumRVAdapter = null;
 
     @Override
     protected ActivityPostBinding getBinding() {
@@ -44,7 +64,11 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setMyClickListener();
+        initRV();
     }
 
     private void setMyClickListener() {
@@ -60,8 +84,9 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         binding.newpostTweetTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 이미지 업로드, 내용 validation
-                // 이미지 업로드 끝나면, JDBC 쿼리문 날리기 insert into post ~~, file ~~
+                // 포스트 업로드
+                content = binding.newpostContentEt.getText().toString();
+                new UploadPostAsyncTask().execute();
             }
         });
 
@@ -71,6 +96,19 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
                 checkPermission();
             }
         });
+    }
+
+    private void initRV(){
+        postAlbumRVAdapter = new PostAlbumRVAdapter(this);
+        postAlbumRVAdapter.setMyClickListener(new PostAlbumRVAdapter.MyItemClickListener(){
+
+            @Override
+            public void onDeleted(@NonNull ArrayList<Uri> list) {
+                uriList.clear();
+                uriList.addAll(list);
+            }
+        });
+        binding.newpostAlbumRv.setAdapter(postAlbumRVAdapter);
     }
 
     /* 권한 가져오기 */
@@ -119,24 +157,25 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
                 showToast("이미지를 선택하지 않았습니다.");
             } else {// 이미지를 하나라도 선택한 경우
                 if (data.getClipData() == null) {     // 이미지를 하나만 선택한 경우
-                    Log.d("single choice: ", String.valueOf(data.getData()));
                     Uri imageUri = data.getData();
                     uriList.add(imageUri);
 
                 } else {      // 이미지를 여러장 선택한 경우
                     ClipData clipData = data.getClipData();
-                    Log.d("clipData", String.valueOf(clipData.getItemCount()));
 
                     for (int i = 0; i < clipData.getItemCount(); i++) {
                         Uri imageUri = clipData.getItemAt(i).getUri();
                         uriList.add(imageUri);
-                        Log.d("clipData", String.valueOf(clipData.getItemAt(i)));
                     }
                 }
+
+
+                postAlbumRVAdapter.addImages(uriList);
             }
         }
     }
 
+    String post_id;
     // Firebase에 이미지 올리기
     private void uploadImages(){
         for(Uri uri: uriList){
@@ -160,9 +199,10 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
                         String downloadUri = task.getResult().toString();
                         imgList.add(downloadUri);
 
-
                         if(uri == uriList.get(uriList.size() - 1)){ // 모든 이미지 업로드 완료
                             Log.d("Firebase", imgList.toString());
+                            // 이미지 업로드 쿼리문 실행
+                            new UploadImagesAsyncTask().execute();
                         }
                     }
                 }
@@ -171,5 +211,84 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         }
     }
 
+    // Post 등록 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class UploadPostAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
+                LocalDateTime now = LocalDateTime.now();
+                String createAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
+
+                String query = "insert into post (writer_id, content, written_date) values ('" + userId + "','" + content + "','" + createAt + "');";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                preparedStatement.executeUpdate();
+
+                Statement stmt = connection.createStatement();
+                String s1 = "select post_id from post where writer_id = \"" + userId + "\" and written_date=\"" + createAt + "\"";
+                ResultSet rs = stmt.executeQuery(s1);
+                if(rs.next()){
+                    post_id =  rs.getString("post_id");
+                }
+
+                Log.d("Post", "Post is uploaded");
+            } catch (Exception e) {
+                Log.e("GetUserAsyncTask", "Error reading school information"+ e);
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                this.cancel(true);
+
+                if(uriList.isEmpty()){ // 이미지 없는 경우,
+                    finish();
+                }else{
+                    uploadImages();
+                }
+            }
+        }
+    }
+
+    // Post 등록 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class UploadImagesAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
+                for(String img: imgList){
+                    String query = "insert into file (post_id, file) values ('" + post_id + "','" + img + "');";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                    preparedStatement.executeUpdate();
+                }
+
+                Log.d("Post", "Post is uploaded");
+            } catch (Exception e) {
+                Log.e("GetUserAsyncTask", "Error reading school information"+ e);
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                this.cancel(true);
+
+
+                finish();
+            }
+        }
+    }
 }

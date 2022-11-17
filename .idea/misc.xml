@@ -13,6 +13,7 @@
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_gray_circle.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_primary_stroke_round.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_search.xml" value="0.155" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_white_circle.xml" value="0.163" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_white_rectangle.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/ic_cancel.xml" value="0.1395" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/ic_home_off.xml" value="0.166" />
@@ -20,7 +21,10 @@
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/ic_more.xml" value="0.23" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/item_image.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/selector_navi_home.xml" value="0.166" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/selector_switch.xml" value="0.1825" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_edit.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_example.xml" value="0.4" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_interest.xml" value="0.1771140092553639" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_newpost.xml" value="0.2" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_post.xml" value="0.264" />
@@ -29,69 +33,17 @@
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_bookmark.xml" value="0.264" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_mypage.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_notification.xml" value="0.264" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_post_detail.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_search.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_search_after.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_search_before.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/item_album.xml" value="0.264" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/item_follow.xml" value="0.264" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/item_notification.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/item_post.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/item_search.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19814814814814816" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable-v24/ic_more_black.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable-v24/selector_navi_bookmark.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable-v24/selector_navi_mypage.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/bg_black_circle.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/bg_blue_square.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/bg_check_interest.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/bg_check_not_selection.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/bg_check_selection.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/bg_gray_circle.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/bg_primary_stroke_round.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/bg_search.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/bg_white_rectangle.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/buttondesign.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/ic_album.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_arrow.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_bookmark_off.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_bookmark_on.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.225" />
-        <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_mapping.xml" value="0.245" />
-        <entry key="app/src/main/res/drawable/ic_more.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_mypage_on.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_retweet.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_search_off.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_twitter.xml" value="0.2995" />
-        <entry key="app/src/main/res/drawable/ic_user.xml" value="0.245" />
-        <entry key="app/src/main/res/layout/activity_example.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/activity_find_password.xml" value="0.2790740627567704" />
-        <entry key="app/src/main/res/layout/activity_interest.xml" value="0.3835998535156249" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/activity_post.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.41334569045412417" />
-        <entry key="app/src/main/res/layout/activity_signup1.xml" value="0.4061920166015624" />
-        <entry key="app/src/main/res/layout/activity_signup2.xml" value="0.38057250976562496" />
-        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/bg_check_interest.xml" value="0.33133817870884996" />
-        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/fragment_search_after.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/fragment_search_before.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/item_album.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/item_follow.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/item_search.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/toolbar_login.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/layout/toolbar_logincancel.xml" value="0.4036458333333333" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.4036458333333333" />
       </map>
     </option>
   </component>

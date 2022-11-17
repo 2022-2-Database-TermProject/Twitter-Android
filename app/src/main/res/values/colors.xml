@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="black40">#67000000</color>
+
     <!-- Twitter  -->
     <color name="primary">#4B9AEB</color>
     <color name="primary_dark">#3387AD</color>
