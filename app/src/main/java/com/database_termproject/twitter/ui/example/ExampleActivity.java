@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import com.database_termproject.twitter.databinding.ActivityExampleBinding;
 import com.database_termproject.twitter.ui.BaseActivity;
+import com.database_termproject.twitter.ui.edit.EditActivity;
 import com.database_termproject.twitter.ui.main.MainActivity;
 
 import java.sql.Connection;
@@ -34,7 +35,7 @@ public class ExampleActivity extends BaseActivity<ActivityExampleBinding> {
         binding.exampleHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startNextActivity(MainActivity.class);
+                startNextActivity(EditActivity.class);
             }
         });
 
