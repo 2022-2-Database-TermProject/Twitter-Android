@@ -284,11 +284,9 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                this.cancel(true);
-
-
                 finish();
             }
+            this.cancel(true);
         }
     }
 }
