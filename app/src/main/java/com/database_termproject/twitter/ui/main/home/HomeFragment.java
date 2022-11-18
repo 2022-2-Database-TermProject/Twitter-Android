@@ -44,7 +44,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onStart() {
         super.onStart();
+
         new GetPostAsyncTask().execute();
+        //new GetRecommendPostAsyncTask().execute();
     }
 
     @Override
@@ -280,5 +282,42 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         }
     }
 
+    // 추천 게시물 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class GetRecommendPostAsyncTask extends AsyncTask<Void, Void, Post> {
+        @Override
+        protected Post doInBackground(Void... voids) {
+            String user_id = "yusin";
+            Post post;
 
+            // TODO: 쿼리문에 문제 있음
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                String sql = "select id, content, num_of_likes, written_date from user natural join post where interest_id = "
+                        + "(select interest_id from user as a where a.user_id = \"" + user_id
+                        + "\") and region_id = (select region_id from user as a where a.user_id = \"" + user_id
+                        + "\") and writer_id = user_id order by rand() limit 10";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);
+
+                while(resultSet.next()){
+                    String content = resultSet.getString("content");
+                    Log.d("Home", content);
+                }
+
+            } catch (Exception e) {
+                Log.e("GetUserAsyncTask", "Error reading school information", e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Post result) {
+            if (result != null) {
+
+            }
+
+            this.cancel(true);
+        }
+    }
 }
