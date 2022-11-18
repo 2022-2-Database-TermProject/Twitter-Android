@@ -22,6 +22,10 @@ class CommentRVAdapter(val context: Context) : RecyclerView.Adapter<CommentRVAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(commentList[position])
+
+        holder.binding.itemPostLikeLayout.setOnClickListener {
+            myItemClickListener.like(commentList[position])
+        }
     }
 
     override fun getItemCount(): Int = commentList.size
@@ -52,6 +56,16 @@ class CommentRVAdapter(val context: Context) : RecyclerView.Adapter<CommentRVAda
         commentList.clear();
         commentList.addAll(list);
         notifyDataSetChanged()
+    }
+
+    /* 클릭 이벤트 */
+    interface MyItemClickListener {
+        fun like(comment: Comment)
+    }
+
+    private lateinit var myItemClickListener: MyItemClickListener
+    fun setMyClickListener(myItemClickListener: MyItemClickListener){
+        this.myItemClickListener = myItemClickListener
     }
 
 }

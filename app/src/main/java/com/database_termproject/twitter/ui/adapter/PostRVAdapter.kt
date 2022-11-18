@@ -1,7 +1,9 @@
 package com.database_termproject.twitter.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.database_termproject.twitter.data.Post
@@ -51,6 +53,17 @@ class PostRVAdapter(val context: Context) : RecyclerView.Adapter<PostRVAdapter.V
             homePostImageRVAdapter = PostImageRVAdapter(context, post.fileList)
             binding.itemPostImagesRv.adapter = homePostImageRVAdapter
 
+            // 리트윗한 글인지 확인,
+            Log.d("Post",  "postid: ${post.post_id} retweet: ${post.retweet_post}")
+            if(post.retweet_post != 0){
+                binding.itemPostRetweetInfoIv.visibility = View.VISIBLE
+                binding.itemPostRetweetInfoTv.visibility = View.VISIBLE
+            }else{
+                binding.itemPostRetweetInfoIv.visibility = View.GONE
+                binding.itemPostRetweetInfoTv.visibility = View.GONE
+            }
+
+            // TODO: 로그인 JDBC 연결 후, 주석 해제
 //            if(post.writer_id == getUserId()){
 //                binding.itemPostMoreIv.visibility = View.VISIBLE
 //            }else{

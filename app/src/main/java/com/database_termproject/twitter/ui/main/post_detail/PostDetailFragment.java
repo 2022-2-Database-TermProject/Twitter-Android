@@ -11,12 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import com.database_termproject.twitter.data.Comment;
 import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.databinding.FragmentPostDetailBinding;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.ui.adapter.CommentRVAdapter;
 import com.database_termproject.twitter.ui.adapter.PostImageRVAdapter;
+import com.database_termproject.twitter.ui.main.home.HomeFragment;
 import com.google.gson.Gson;
 
 import java.sql.Connection;
@@ -54,13 +57,26 @@ public class PostDetailFragment extends BaseFragment<FragmentPostDetailBinding> 
             binding.postDetailFileRv.setAdapter(homePostImageRVAdapter);
         }
 
-        // Comment 조회,
+        // Comment 조회, 좋아요
         commentRVAdapter = new CommentRVAdapter(requireContext());
         binding.postDetailCommentRv.setAdapter(commentRVAdapter);
+        commentRVAdapter.setMyClickListener(new CommentRVAdapter.MyItemClickListener() {
+            @Override
+            public void like(@NonNull Comment comment) {
+                new LikeCommentAsyncTask().execute(comment.comment_id);
+            }
+        });
 
         new GetCommentAsyncTask().execute();
 
         // Event Listeners
+        binding.postDetailBackIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findNavController().popBackStack();
+            }
+        });
+
         binding.postDetailTweetTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +135,7 @@ public class PostDetailFragment extends BaseFragment<FragmentPostDetailBinding> 
 
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 Statement stmt = connection.createStatement();
-                String s2 = "select comment_id, user_id, nickname, content, num_of_likes from comment as C join user as U where post_id = " + post.post_id + " and C.user_id = U.id;";
+                String s2 = "select comment_id, user_id, nickname, content, num_of_likes from comment as C join user as U where post_id = " + post.post_id + " and C.user_id = U.id order by comment_id desc;";
                 ResultSet rs = stmt.executeQuery(s2);
 
                 while(rs.next()){
@@ -139,6 +155,55 @@ public class PostDetailFragment extends BaseFragment<FragmentPostDetailBinding> 
             if (!result.isEmpty()) {
 
                 commentRVAdapter.addComments(result);
+            }
+
+            this.cancel(true);
+        }
+    }
+
+    // 댓글 좋아요 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class LikeCommentAsyncTask extends AsyncTask<Integer, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                int comment_id = integers[0];
+                String user_id = "yusin";
+
+                // 기존에 좋아요 했는지 확인
+                Statement stmt = connection.createStatement();
+                String check = "select * from comment_like where user_id = \""+ user_id +"\" and target_id = \""+comment_id+"\"";
+                ResultSet rs = stmt.executeQuery(check);
+
+                if(rs.next()){ // 좋아요 O, 좋아요 취소
+                    String sql1 = "update comment set num_of_likes = num_of_likes - 1 where comment_id = \""+ comment_id +"\"";
+                    String sql2 = "delete from comment_like where target_id = \""+ comment_id  +"\" and user_id = \""+ user_id +"\"";
+
+                    PreparedStatement pstm = connection.prepareStatement(sql1);
+                    pstm.executeUpdate();
+                    pstm.executeUpdate(sql2);
+                }else{         // 좋아요 X, 좋아요 추가
+                    String sql1 = "update comment set num_of_likes = num_of_likes + 1 where comment_id = \""+ comment_id +"\"";
+                    String sql2 = "insert into comment_like values(\""+ user_id +"\", \""+ comment_id +"\")";
+
+                    PreparedStatement pstm = connection.prepareStatement(sql1);
+                    pstm.executeUpdate();
+                    pstm.executeUpdate(sql2);
+                }
+
+                return true;
+            } catch (Exception e) {
+                Log.e("LikeCommentAsyncTask", "Error reading school information", e);
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) { // 댓글 새로고침
+                new GetCommentAsyncTask().execute();
             }
 
             this.cancel(true);

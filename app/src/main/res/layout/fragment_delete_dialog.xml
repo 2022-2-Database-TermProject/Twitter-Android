@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white_radius_dialog">
+
+    <TextView
+        android:id="@+id/delete_dialog_msg_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintVertical_bias="0.55"
+        android:text="정말로 삭제하시겠습니까?"
+        android:textAppearance="@style/tv_eb_16"
+        app:layout_constraintBottom_toTopOf="@+id/delete_dialog_desc_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/delete_dialog_desc_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:paddingHorizontal="32dp"
+        android:text="삭제 후 되돌릴 수 없어요!"
+        android:textAppearance="@style/tv_b_12"
+        android:textColor="@color/deep_gray"
+        app:layout_constraintBottom_toTopOf="@+id/action_dialog_line_view"
+        app:layout_constraintTop_toBottomOf="@+id/delete_dialog_msg_tv" />
+
+    <View
+        android:id="@+id/action_dialog_line_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white_dark"
+        app:layout_constraintBottom_toTopOf="@+id/delete_dialog_cancel_tv" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white_dark"
+        app:layout_constraintTop_toBottomOf="@id/action_dialog_line_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/delete_dialog_cancel_tv"
+        app:layout_constraintEnd_toStartOf="@id/delete_dialog_confirm_tv"/>
+
+    <TextView
+        android:id="@+id/delete_dialog_cancel_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="20dp"
+        android:textAppearance="@style/tv_b_14"
+        android:text="취소"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_dialog_confirm_tv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/delete_dialog_confirm_tv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textAppearance="@style/tv_b_14"
+        android:textColor="@color/primary"
+        android:text="확인"
+        app:layout_constraintBottom_toBottomOf="@+id/delete_dialog_cancel_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/delete_dialog_cancel_tv"
+        app:layout_constraintTop_toTopOf="@+id/delete_dialog_cancel_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,7 @@ import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.databinding.FragmentHomeBinding;
 import com.database_termproject.twitter.ui.adapter.PostRVAdapter;
+import com.database_termproject.twitter.ui.dialong.RetweetDialogFragment;
 import com.database_termproject.twitter.ui.main.post_detail.PostDetailFragment;
 import com.database_termproject.twitter.ui.post.PostActivity;
 import com.google.gson.Gson;
@@ -28,6 +29,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
@@ -64,7 +67,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
             @Override
             public void retweet(@NonNull Post post) { // 리트윗 클릭 시, 리트윗 액티비티로 이동
-
+                RetweetDialogFragment retweetDialogFragment = new RetweetDialogFragment();
+                retweetDialogFragment.show(getFragmentManager(), null);
+                retweetDialogFragment.setMyDialogCallback(new RetweetDialogFragment.MyDialogCallback() {
+                    @Override
+                    public void confirm(@NonNull String content) {
+                        // 리트윗 JDBC
+                        String post_id = "" + post.post_id;
+                        new WriteRetweetAsyncTask().execute(post_id, content);
+                    }
+                });
             }
 
             @Override
@@ -100,7 +112,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                         fileList.add(file);
                     }
 
-                    Post post = new Post(resultSet.getInt("post_id"), resultSet.getString("writer_id"),resultSet.getString("nickname"), resultSet.getString("content"), fileList,resultSet.getString("written_date"), resultSet.getInt("num_of_likes"), resultSet.getInt("retweet_num"));
+                    Post post = new Post(resultSet.getInt("post_id"), resultSet.getString("writer_id"),resultSet.getString("nickname"), resultSet.getString("content"), fileList,resultSet.getString("written_date"), resultSet.getInt("num_of_likes"), resultSet.getInt("retweet_num"), resultSet.getInt("retweet_post"));
                     postList.add(post);
                 }
             } catch (Exception e) {
@@ -152,6 +164,45 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 return true;
             } catch (Exception e) {
                 Log.e("WriteCommentAsyncTask", "Error reading school information", e);
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) { // 포스트 새로고침
+                new GetPostAsyncTask().execute();
+            }
+
+            this.cancel(true);
+        }
+    }
+
+    // 리트윗 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class WriteRetweetAsyncTask extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... strings) {
+
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                String post_id = strings[0];
+                String content = strings[1];
+                String user_id = "yusin";
+
+                LocalDateTime now = LocalDateTime.now();
+                String createAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
+
+                String sql = "insert into post(content, writer_id, retweet_post, written_date) values(\"" + content + "\", \"" + user_id + "\", \"" + post_id + "\", \""+ createAt + "\")";
+                String sql2 = "update post set retweet_num = retweet_num + 1 where post_id = " + post_id;
+
+                PreparedStatement pstm = connection.prepareStatement(sql);
+                pstm.executeUpdate();
+                pstm.executeUpdate(sql2);
+
+                return true;
+            } catch (Exception e) {
+                Log.e("WriteRetweetAsyncTask", "Error reading school information", e);
             }
 
             return false;

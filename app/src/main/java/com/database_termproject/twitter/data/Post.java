@@ -11,8 +11,9 @@ public class Post {
     public String written_date;
     public int num_of_likes;
     public int retweet_num;
+    public Integer retweet_post = null;
 
-    public Post(int post_id, String writer_id, String nickname, String content, ArrayList<String> fileList, String written_date, int num_of_likes, int retweet_num){
+    public Post(int post_id, String writer_id, String nickname, String content, ArrayList<String> fileList, String written_date, int num_of_likes, int retweet_num, Integer retweet_post){
         this.post_id = post_id;
         this.writer_id = writer_id;
         this.nickname = nickname;
@@ -21,5 +22,6 @@ public class Post {
         this.written_date = written_date;
         this.num_of_likes = num_of_likes;
         this.retweet_num = retweet_num;
+        this.retweet_post = retweet_post;
     }
 }
