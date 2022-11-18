@@ -8,6 +8,9 @@
         android:id="@+id/homeFragment"
         android:name="com.database_termproject.twitter.ui.main.home.HomeFragment"
         android:label="homeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -41,6 +44,14 @@
         android:label="SearchAfterFragment" >
         <argument
             android:name="search_word"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.database_termproject.twitter.ui.main.post_detail.PostDetailFragment"
+        android:label="PostDetailFragment">
+        <argument
+            android:name="post_id"
             app:argType="string" />
     </fragment>
 </navigation>

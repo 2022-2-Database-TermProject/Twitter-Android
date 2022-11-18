@@ -12,13 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.databinding.FragmentHomeBinding;
+import com.database_termproject.twitter.ui.main.search.SearchBeforeFragmentDirections;
 import com.database_termproject.twitter.ui.post.PostActivity;
+import com.google.gson.Gson;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -57,9 +61,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
         homePostRVAdapter = new HomePostRVAdapter(requireContext());
         binding.homePostRv.setAdapter(homePostRVAdapter);
+        homePostRVAdapter.setMyClickListener(new HomePostRVAdapter.MyItemClickListener() {
+            @Override
+            public void onClick(@NonNull Post post) {
+                String postJson = new Gson().toJson(post);
+                NavDirections action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postJson);
+                findNavController().navigate(action);
+            }
+        });
     }
 
-    // 유저 조회
+    // 포스트 조회
     @SuppressLint("StaticFieldLeak")
     public class GetPostAsyncTask extends AsyncTask<Void, Void, ArrayList<Post>> {
         @Override
