@@ -116,8 +116,8 @@
         <TextView
             android:id="@+id/item_post_retweet_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:textColor="@color/blue_gray"
             style="@style/tv_16"
             android:layout_marginStart="10dp"/>
@@ -142,8 +142,8 @@
         <TextView
             android:id="@+id/item_post_like_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:textColor="@color/blue_gray"
             style="@style/tv_16"
             android:layout_marginStart="10dp"/>

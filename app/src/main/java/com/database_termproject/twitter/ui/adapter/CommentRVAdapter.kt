@@ -32,7 +32,11 @@ class CommentRVAdapter(val context: Context) : RecyclerView.Adapter<CommentRVAda
             binding.itemPostUseridTv.text = "@" + comment.writer_id
             binding.itemPostContentTv.text = comment.content
 
-            binding.itemPostLikeTv.text = comment.num_of_likes.toString()
+            if(comment.num_of_likes > 0){
+                binding.itemPostLikeTv.text = comment.num_of_likes.toString()
+            }else{
+                binding.itemPostLikeTv.text = ""
+            }
             binding.itemPostRetweetLayout.visibility = View.GONE
 
 //            if(post.writer_id == getUserId()){

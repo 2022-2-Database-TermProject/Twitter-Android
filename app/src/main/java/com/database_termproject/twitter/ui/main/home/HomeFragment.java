@@ -13,30 +13,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
 import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.databinding.FragmentHomeBinding;
-import com.database_termproject.twitter.ui.main.search.SearchBeforeFragmentDirections;
+import com.database_termproject.twitter.ui.adapter.PostRVAdapter;
+import com.database_termproject.twitter.ui.main.post_detail.PostDetailFragment;
 import com.database_termproject.twitter.ui.post.PostActivity;
 import com.google.gson.Gson;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
-    HomePostRVAdapter homePostRVAdapter;
+    PostRVAdapter homePostRVAdapter;
 
     @Override
     protected FragmentHomeBinding getBinding(LayoutInflater inflater, ViewGroup container) {
@@ -59,11 +54,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             }
         });
 
-        homePostRVAdapter = new HomePostRVAdapter(requireContext());
+        homePostRVAdapter = new PostRVAdapter(requireContext());
         binding.homePostRv.setAdapter(homePostRVAdapter);
-        homePostRVAdapter.setMyClickListener(new HomePostRVAdapter.MyItemClickListener() {
+        homePostRVAdapter.setMyClickListener(new PostRVAdapter.MyItemClickListener() {
             @Override
-            public void onClick(@NonNull Post post) {
+            public void like(@NonNull Post post) { // 좋아요 클릭 시, 게시물 좋아요 JDBC
+                new LikePostAsyncTask().execute(post.post_id);
+            }
+
+            @Override
+            public void retweet(@NonNull Post post) { // 리트윗 클릭 시, 리트윗 액티비티로 이동
+
+            }
+
+            @Override
+            public void onClick(@NonNull Post post) { // 클릭 시, 포스트 상세 보기로 이동
                 String postJson = new Gson().toJson(post);
                 NavDirections action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postJson);
                 findNavController().navigate(action);
@@ -109,6 +114,53 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         protected void onPostExecute(ArrayList<Post> result) {
             if (result != null) {
                 homePostRVAdapter.addPosts(result);
+            }
+
+            this.cancel(true);
+        }
+    }
+
+    // 게시물 좋아요 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class LikePostAsyncTask extends AsyncTask<Integer, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                int post_id = integers[0];
+                // 기존에 좋아요 했는지 확인
+                Statement stmt = connection.createStatement();
+                String check = "select * from post_like where user_id = \""+ "yusin" +"\" and target_id = \""+ post_id +"\"";
+                ResultSet rs = stmt.executeQuery(check);
+
+                if(rs.next()){ // 좋아요 O, 좋아요 취소
+                    String sql1 = "update post set num_of_likes = num_of_likes - 1 where post_id = \""+ post_id +"\"";
+                    String sql2 = "delete from post_like where target_id = \""+ post_id  +"\" and user_id = \""+ "yusin" +"\"";
+
+                    PreparedStatement pstm = connection.prepareStatement(sql1);
+                    pstm.executeUpdate();
+                    pstm.executeUpdate(sql2);
+                }else{         // 좋아요 X, 좋아요 추가
+                    String sql1 = "update post set num_of_likes = num_of_likes + 1 where post_id = \""+ post_id +"\"";
+                    String sql2 = "insert into post_like values(\""+ "yusin" +"\", \""+ post_id +"\")";
+
+                    PreparedStatement pstm = connection.prepareStatement(sql1);
+                    pstm.executeUpdate();
+                    pstm.executeUpdate(sql2);
+                }
+
+                return true;
+            } catch (Exception e) {
+                Log.e("WriteCommentAsyncTask", "Error reading school information", e);
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) { // 포스트 새로고침
+                new GetPostAsyncTask().execute();
             }
 
             this.cancel(true);

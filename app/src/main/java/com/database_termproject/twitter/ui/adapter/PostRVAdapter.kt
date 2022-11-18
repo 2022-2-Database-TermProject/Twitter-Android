@@ -1,4 +1,4 @@
-package com.database_termproject.twitter.ui.main.home
+package com.database_termproject.twitter.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.database_termproject.twitter.data.Post
 import com.database_termproject.twitter.databinding.ItemPostBinding
-import com.database_termproject.twitter.ui.adapter.PostImageRVAdapter
 
-class HomePostRVAdapter(val context: Context) : RecyclerView.Adapter<HomePostRVAdapter.ViewHolder>() {
+class PostRVAdapter(val context: Context) : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
     private val postList = arrayListOf<Post>()
     private lateinit var homePostImageRVAdapter: PostImageRVAdapter
 
@@ -25,6 +24,14 @@ class HomePostRVAdapter(val context: Context) : RecyclerView.Adapter<HomePostRVA
         holder.binding.root.setOnClickListener {
             myItemClickListener.onClick(postList[position])
         }
+
+        holder.binding.itemPostLikeLayout.setOnClickListener {
+            myItemClickListener.like(postList[position])
+        }
+
+        holder.binding.itemPostRetweetLayout.setOnClickListener {
+            myItemClickListener.retweet(postList[position])
+        }
     }
 
     override fun getItemCount(): Int = postList.size
@@ -36,8 +43,10 @@ class HomePostRVAdapter(val context: Context) : RecyclerView.Adapter<HomePostRVA
             binding.itemPostUseridTv.text = "@" + post.writer_id
             binding.itemPostContentTv.text = post.content
 
-            binding.itemPostLikeTv.text = post.num_of_likes.toString()
-            binding.itemPostRetweetTv.text = post.retweet_num.toString()
+            if(post.num_of_likes > 0) binding.itemPostLikeTv.text = post.num_of_likes.toString()
+            else binding.itemPostLikeTv.text = ""
+            if(post.retweet_num > 0) binding.itemPostRetweetTv.text = post.retweet_num.toString()
+            else binding.itemPostRetweetTv.text = ""
 
             homePostImageRVAdapter = PostImageRVAdapter(context, post.fileList)
             binding.itemPostImagesRv.adapter = homePostImageRVAdapter
@@ -60,6 +69,8 @@ class HomePostRVAdapter(val context: Context) : RecyclerView.Adapter<HomePostRVA
     /* 클릭 이벤트 */
     interface MyItemClickListener {
         fun onClick(post: Post)
+        fun retweet(post: Post)
+        fun like(post: Post)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener

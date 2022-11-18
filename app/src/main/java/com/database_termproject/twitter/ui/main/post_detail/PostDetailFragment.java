@@ -7,7 +7,6 @@ import static com.database_termproject.twitter.utils.GlobalApplication.USER;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.database_termproject.twitter.databinding.FragmentPostDetailBinding;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.ui.adapter.CommentRVAdapter;
 import com.database_termproject.twitter.ui.adapter.PostImageRVAdapter;
-import com.database_termproject.twitter.ui.main.home.HomePostRVAdapter;
 import com.google.gson.Gson;
 
 import java.sql.Connection;
