@@ -1,4 +1,4 @@
-package com.database_termproject.twitter.ui.dialong
+package com.database_termproject.twitter.ui.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,23 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import com.database_termproject.twitter.databinding.FragmentDeleteDialogBinding
 import com.database_termproject.twitter.databinding.FragmentRetweetDialogBinding
 import com.database_termproject.twitter.utils.DialogFragmentUtils
 
-class DeleteDialogFragment: DialogFragment() {
-    private lateinit var binding: FragmentDeleteDialogBinding
+class RetweetDialogFragment: DialogFragment() {
+    private lateinit var binding: FragmentRetweetDialogBinding
     private lateinit var myDialogCallback: MyDialogCallback
 
     interface MyDialogCallback {
-        fun delete()
+        fun confirm(content: String)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDeleteDialogBinding.inflate(inflater, container, false)
+        binding = FragmentRetweetDialogBinding.inflate(inflater, container, false)
 
         //다이얼로그 프래그먼트 모서리 둥글게
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -43,22 +42,25 @@ class DeleteDialogFragment: DialogFragment() {
             requireContext(),
             this,
             0.9f,
-            0.64f
+            0.5f
         )
     }
-
 
     fun setMyDialogCallback(myDialogCallback: MyDialogCallback) {
         this.myDialogCallback = myDialogCallback
     }
 
     private fun setMyClickListener(){
-        binding.deleteDialogCancelTv.setOnClickListener {
+        binding.retweetDialogCancelTv.setOnClickListener {
             dismiss()
         }
 
-        binding.deleteDialogConfirmTv.setOnClickListener {
-            myDialogCallback.delete()
+        binding.retweetDialogSaveTv.setOnClickListener {
+            // Validation 후, 저장
+            val text = binding.retweetDialogContentEt.text.toString()
+            if(text.isEmpty()) return@setOnClickListener;
+
+            myDialogCallback.confirm(text);
             dismiss()
         }
     }

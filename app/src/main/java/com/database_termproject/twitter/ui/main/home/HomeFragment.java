@@ -19,8 +19,8 @@ import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.databinding.FragmentHomeBinding;
 import com.database_termproject.twitter.ui.adapter.PostRVAdapter;
-import com.database_termproject.twitter.ui.dialong.RetweetDialogFragment;
-import com.database_termproject.twitter.ui.main.post_detail.PostDetailFragment;
+import com.database_termproject.twitter.ui.dialog.DeleteDialogFragment;
+import com.database_termproject.twitter.ui.dialog.RetweetDialogFragment;
 import com.database_termproject.twitter.ui.post.PostActivity;
 import com.google.gson.Gson;
 
@@ -61,22 +61,18 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         binding.homePostRv.setAdapter(homePostRVAdapter);
         homePostRVAdapter.setMyClickListener(new PostRVAdapter.MyItemClickListener() {
             @Override
+            public void delete(@NonNull Post post) { // 더보기 클릭 시, 포스트 삭제 모달 띄우기
+                showDeleteDialog(post);
+            }
+
+            @Override
             public void like(@NonNull Post post) { // 좋아요 클릭 시, 게시물 좋아요 JDBC
                 new LikePostAsyncTask().execute(post.post_id);
             }
 
             @Override
-            public void retweet(@NonNull Post post) { // 리트윗 클릭 시, 리트윗 액티비티로 이동
-                RetweetDialogFragment retweetDialogFragment = new RetweetDialogFragment();
-                retweetDialogFragment.show(getFragmentManager(), null);
-                retweetDialogFragment.setMyDialogCallback(new RetweetDialogFragment.MyDialogCallback() {
-                    @Override
-                    public void confirm(@NonNull String content) {
-                        // 리트윗 JDBC
-                        String post_id = "" + post.post_id;
-                        new WriteRetweetAsyncTask().execute(post_id, content);
-                    }
-                });
+            public void retweet(@NonNull Post post) { // 리트윗 클릭 시, 리트윗 모달 띄우기
+                showRetweetDialog(post);
             }
 
             @Override
@@ -87,6 +83,31 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             }
         });
     }
+
+    private void showRetweetDialog(Post post){
+        RetweetDialogFragment retweetDialogFragment = new RetweetDialogFragment();
+        retweetDialogFragment.show(getFragmentManager(), null);
+        retweetDialogFragment.setMyDialogCallback(new RetweetDialogFragment.MyDialogCallback() {
+            @Override
+            public void confirm(@NonNull String content) { // 리트윗 JDBC
+                String post_id = "" + post.post_id;
+                new WriteRetweetAsyncTask().execute(post_id, content);
+            }
+        });
+    }
+
+    private void showDeleteDialog(Post post){
+        DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment();
+        deleteDialogFragment.show(getFragmentManager(), null);
+        deleteDialogFragment.setMyDialogCallback(new DeleteDialogFragment.MyDialogCallback() {
+            @Override
+            public void delete() { // 포스트 삭제 JDBC
+                new DeletePostAsyncTask().execute(post.post_id);
+            }
+        });
+    }
+
+    // ------
 
     // 포스트 조회
     @SuppressLint("StaticFieldLeak")
@@ -217,4 +238,47 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             this.cancel(true);
         }
     }
+
+    // 포스트 삭제 JDBC
+    @SuppressLint("StaticFieldLeak")
+    public class DeletePostAsyncTask extends AsyncTask<Integer, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                int post_id = integers[0];
+
+                // Retweet post면, 원본 포스트의 retweet num 지우기
+                Statement stmt = connection.createStatement();
+                String check = "select * from post where post_id = " + post_id;
+                ResultSet rs = stmt.executeQuery(check);
+                if(rs.next()) {
+                    String updateSql = "update post set retweet_num = retweet_num - 1 where post_id = " + rs.getInt("retweet_post");
+                    PreparedStatement pstm = connection.prepareStatement(updateSql);
+                    pstm.executeUpdate();
+                }
+
+                String sql = "delete from post where post_id = " + post_id;
+                PreparedStatement pstm = connection.prepareStatement(sql);
+                pstm.executeUpdate();
+
+                return true;
+            } catch (Exception e) {
+                Log.e("WriteRetweetAsyncTask", "Error reading school information", e);
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) { // 포스트 새로고침
+                new GetPostAsyncTask().execute();
+            }
+
+            this.cancel(true);
+        }
+    }
+
+
 }
