@@ -88,7 +88,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     style="@style/tv_b_14"
                     android:layout_width="109dp"
-                    android:layout_height="39dp"
+                    android:layout_height="45dp"
                     android:layout_marginTop="128dp"
                     android:layout_marginEnd="26dp"
                     android:background="@drawable/bg_check_not_selection"
