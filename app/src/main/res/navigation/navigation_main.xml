@@ -63,4 +63,28 @@
             android:name="user_id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/mypageLikeFragment"
+        android:name="com.database_termproject.twitter.ui.main.mypage.MypageLikeFragment"
+        android:label="MypageLikeFragment" >
+        <action
+            android:id="@+id/action_mypageLikeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mypageRetweetFragment"
+        android:name="com.database_termproject.twitter.ui.main.mypage.MypageRetweetFragment"
+        android:label="MypageRetweetFragment" >
+        <action
+            android:id="@+id/action_mypageRetweetFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mypageTweetFragment"
+        android:name="com.database_termproject.twitter.ui.main.mypage.MypageTweetFragment"
+        android:label="MypageTweetFragment" >
+        <action
+            android:id="@+id/action_mypageTweetFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
 </navigation>

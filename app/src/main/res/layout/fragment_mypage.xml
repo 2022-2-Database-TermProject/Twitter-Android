@@ -49,7 +49,9 @@
                         android:layout_height="57dp"
                         android:layout_marginStart="26dp"
                         android:layout_marginTop="100dp"
-                        android:background="@drawable/ic_user"
+                        android:src="@drawable/ic_user"
+                        android:background="@drawable/bg_gray_circle"
+                        android:scaleType="centerCrop"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,7 +78,7 @@
                         android:layout_marginTop="5dp"/>
 
                     <TextView
-                        android:id="@+id/registration_date"
+                        android:id="@+id/mypage_region_tv"
                         style="@style/tv_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -99,7 +101,7 @@
                         android:gravity="center"
                         android:text=" 1 팔로잉 0 팔로워"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/registration_date" />
+                        app:layout_constraintTop_toBottomOf="@+id/mypage_region_tv" />
 
                     <TextView
                         android:id="@+id/change_profile"
@@ -146,7 +148,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
-            android:layout_marginTop="10dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:paddingVertical="40dp"
+    tools:background="@color/white"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <ImageView
+        android:id="@+id/srl_classics_arrow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:id="@+id/srl_classics_progress"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerInParent="true"
+        tools:tint="#666666"
+        tools:src="@android:drawable/stat_notify_sync"/>
+
+</merge>
