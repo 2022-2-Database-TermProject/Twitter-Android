@@ -1,6 +1,10 @@
 package com.database_termproject.twitter.utils
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import com.database_termproject.twitter.utils.GlobalApplication.Companion.mSharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 /* user_id */
 fun saveUserId(userId: String) {
