@@ -1,8 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'androidx.navigation.safeargs.kotlin'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
 }
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdk 32
@@ -15,6 +19,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        defaultConfig {
+            buildConfigField "String", "USER", properties["user"]
+            buildConfigField "String", "PASSWORD", properties["password"]
+            buildConfigField "String", "URL", properties["url"]
+        }
     }
 
     buildTypes {
@@ -51,4 +61,23 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // MYSQL Connector
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'mysql:mysql-connector-java:5.1.49'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    // Switch Button
+    implementation 'com.kyleduo.switchbutton:library:2.1.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
 }
