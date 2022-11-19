@@ -14,6 +14,7 @@
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_primary_stroke_round.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_search.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_white_circle.xml" value="0.163" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_white_radius_dialog.xml" value="0.229" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/bg_white_rectangle.xml" value="0.155" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/ic_cancel.xml" value="0.1395" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/drawable/ic_home_off.xml" value="0.166" />
@@ -31,10 +32,12 @@
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_signin.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/activity_splash.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_bookmark.xml" value="0.264" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_delete_dialog.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_home.xml" value="0.264" />
-        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_mypage.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_mypage.xml" value="0.264" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_notification.xml" value="0.264" />
-        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_post_detail.xml" value="0.4" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_post_detail.xml" value="0.1917995444191344" />
+        <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_retweet_dialog.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_search.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_search_after.xml" value="0.4" />
         <entry key="..\:/Users/kysle/AndroidStudioProjects/Twitter/app/src/main/res/layout/fragment_search_before.xml" value="0.4" />
