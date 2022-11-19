@@ -35,6 +35,9 @@
         android:id="@+id/mypageFragment"
         android:name="com.database_termproject.twitter.ui.main.mypage.MypageFragment"
         android:label="mypageFragment">
+        <action
+            android:id="@+id/action_mypageFragment_to_followFragment"
+            app:destination="@id/followFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchAfterFragment"
@@ -87,4 +90,8 @@
             android:id="@+id/action_mypageTweetFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/followFragment"
+        android:name="com.database_termproject.twitter.ui.main.follow.FollowFragment"
+        android:label="FollowFragment" />
 </navigation>

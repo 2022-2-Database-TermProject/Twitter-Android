@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -64,7 +65,18 @@ public class MypageFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.mypage_following_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goFollowFragment();
+            }
+        });
+
         return view;
+    }
+
+    private void goFollowFragment(){
+        NavHostFragment.findNavController(this).navigate(R.id.action_mypageFragment_to_followFragment);
     }
 
     @Override
