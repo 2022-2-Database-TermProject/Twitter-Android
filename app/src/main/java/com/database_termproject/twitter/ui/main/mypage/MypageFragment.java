@@ -2,6 +2,7 @@ package com.database_termproject.twitter.ui.main.mypage;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import com.database_termproject.twitter.R;
 import com.database_termproject.twitter.ui.adapter.MypageVPAdapter;
+import com.database_termproject.twitter.ui.edit.EditActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
@@ -26,6 +28,12 @@ public class MypageFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
         initVP();
+        view.findViewById(R.id.change_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireContext(), EditActivity.class));
+            }
+        });
 
         return view;
     }

@@ -39,6 +39,10 @@ class PostRVAdapter(val context: Context) : RecyclerView.Adapter<PostRVAdapter.V
         holder.binding.itemPostMoreIv.setOnClickListener {
             myItemClickListener.delete(postList[position])
         }
+
+        holder.binding.itemPostProfileIv.setOnClickListener {
+            myItemClickListener.showUser(postList[position].writer_id)
+        }
     }
 
     override fun getItemCount(): Int = postList.size
@@ -89,6 +93,7 @@ class PostRVAdapter(val context: Context) : RecyclerView.Adapter<PostRVAdapter.V
         fun retweet(post: Post)
         fun like(post: Post)
         fun delete(post: Post)
+        fun showUser(userId: String)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener

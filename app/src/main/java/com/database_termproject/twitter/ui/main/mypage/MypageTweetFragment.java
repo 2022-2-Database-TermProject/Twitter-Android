@@ -21,3 +21,4 @@ public class MypageTweetFragment extends Fragment {
         return view;
     }
 }
+
