@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.NavAction;
 import androidx.navigation.NavDirections;
 
+import com.database_termproject.twitter.classes.CustomHeader;
 import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.ui.BaseFragment;
 import com.database_termproject.twitter.databinding.FragmentHomeBinding;
@@ -26,6 +27,8 @@ import com.database_termproject.twitter.ui.dialog.DeleteDialogFragment;
 import com.database_termproject.twitter.ui.dialog.RetweetDialogFragment;
 import com.database_termproject.twitter.ui.post.PostActivity;
 import com.google.gson.Gson;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -65,6 +68,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             }
         });
 
+        // Post Adapter
         homePostRVAdapter = new PostRVAdapter(requireContext());
         binding.homePostRv.setAdapter(homePostRVAdapter);
         homePostRVAdapter.setMyClickListener(new PostRVAdapter.MyItemClickListener() {
@@ -94,6 +98,26 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 String postJson = new Gson().toJson(post);
                 NavDirections action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postJson);
                 findNavController().navigate(action);
+            }
+        });
+
+        initRefreshLayout();
+    }
+
+    private void initRefreshLayout(){
+        binding.homeRefreshLayout.setRefreshHeader(new CustomHeader(requireContext()));
+
+        binding.homeRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                new GetPostAsyncTask().execute();
+                new GetRecommendPostAsyncTask().execute();
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                binding.homeRefreshLayout.finishLoadMore();
+                binding.homeRefreshLayout.finishRefresh();
             }
         });
     }
@@ -161,6 +185,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         protected void onPostExecute(ArrayList<Post> result) {
             if (result != null) {
                 homePostRVAdapter.addPosts(result);
+                binding.homeRefreshLayout.finishRefresh();
             }
 
             this.cancel(true);
