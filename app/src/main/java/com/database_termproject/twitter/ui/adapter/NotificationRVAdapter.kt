@@ -21,10 +21,11 @@ class NotificationRVAdapter(val context: Context): RecyclerView.Adapter<Notifica
             binding.itemNotificationIdTv.text = user.user_id
             binding.itemNotificationNicknameTv.text = user.nickname
 
-            Glide.with(context)
-                .load(user.image)
-                .apply(RequestOptions().circleCrop())
-                .into(binding.itemNotificationProfileIv)
+            if(user.image != null)
+                Glide.with(context)
+                    .load(user.image)
+                    .apply(RequestOptions().circleCrop())
+                    .into(binding.itemNotificationProfileIv)
         }
     }
 

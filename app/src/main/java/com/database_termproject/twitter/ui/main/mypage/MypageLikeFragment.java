@@ -14,22 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavAction;
 import androidx.navigation.NavDirections;
-
 import com.database_termproject.twitter.data.Post;
 import com.database_termproject.twitter.databinding.FragmentMypageTweetBinding;
 import com.database_termproject.twitter.ui.BaseFragment;
-import com.database_termproject.twitter.databinding.FragmentHomeBinding;
-import com.database_termproject.twitter.ui.adapter.PostImageRVAdapter;
 import com.database_termproject.twitter.ui.adapter.PostRVAdapter;
 import com.database_termproject.twitter.ui.dialog.DeleteDialogFragment;
 import com.database_termproject.twitter.ui.dialog.RetweetDialogFragment;
-import com.database_termproject.twitter.ui.main.home.HomeFragment;
 import com.database_termproject.twitter.ui.main.home.HomeFragmentDirections;
-import com.database_termproject.twitter.ui.post.PostActivity;
 import com.google.gson.Gson;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,9 +31,6 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class MypageLikeFragment extends BaseFragment<FragmentMypageTweetBinding> {
     PostRVAdapter mypagePostRVAdapter;
@@ -85,7 +75,7 @@ public class MypageLikeFragment extends BaseFragment<FragmentMypageTweetBinding>
             @Override
             public void onClick(@NonNull Post post) { // 클릭 시, 포스트 상세 보기로 이동
                 String postJson = new Gson().toJson(post);
-                NavDirections action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postJson);
+                NavDirections action = MypageLikeFragmentDirections.actionMypageLikeFragmentToPostDetailFragment(postJson);
                 findNavController().navigate(action);
             }
         });
@@ -122,23 +112,19 @@ public class MypageLikeFragment extends BaseFragment<FragmentMypageTweetBinding>
             Log.e("test", "1");
             ArrayList<Post> postList = new ArrayList<>();
             String user_id = "yusin";
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
+
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-                Log.e("test", "2");
                 String sql = "select target_id from post_like where user_id = \"" + user_id + "\"";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    Log.e("test", "3");
                     int post_id = resultSet.getInt("target_id");
-                    sql = "select * from post, user where post_id = \'" + post_id + "\' and id = \'" + user_id +"\';";
+                    sql = "select * from post, user where post_id = \"" + post_id + "\" and post.writer_id = user.id;";
                     PreparedStatement statement1 = connection.prepareStatement(sql);
                     ResultSet resultSet2 = statement1.executeQuery();
 
                     while (resultSet2.next()) {
-                        //post_id = resultSet.getInt("post_id");
                         sql = "select * from file where post_id = " + post_id;
                         PreparedStatement statement3 = connection.prepareStatement(sql);
                         ResultSet resultSet3 = statement3.executeQuery();
@@ -148,7 +134,6 @@ public class MypageLikeFragment extends BaseFragment<FragmentMypageTweetBinding>
                             String file = resultSet3.getString("file");
                             fileList.add(file);
                         }
-
 
                         Post post = new Post(resultSet2.getInt("post_id"), resultSet2.getString("writer_id"), resultSet2.getString("nickname"), resultSet2.getString("content"), fileList, resultSet2.getString("written_date"), resultSet2.getInt("num_of_likes"), resultSet2.getInt("retweet_num"), resultSet2.getInt("retweet_post"));
                         postList.add(post);

@@ -20,10 +20,12 @@ class FollowRVAdapter(val context: Context): RecyclerView.Adapter<FollowRVAdapte
             binding.itemFollowIdTv.text = user.user_id
             binding.itemFollowProfileTv.text = user.nickname
 
-            Glide.with(context)
-                .load(user.image)
-                .apply(RequestOptions().circleCrop())
-                .into(binding.itemFollowProfileIv)
+            if(user.image != null){
+                Glide.with(context)
+                    .load(user.image)
+                    .apply(RequestOptions().circleCrop())
+                    .into(binding.itemFollowProfileIv)
+            }
 
             when(user.following_state){
                 0 -> { // 기본 -> 팔로잉 show
