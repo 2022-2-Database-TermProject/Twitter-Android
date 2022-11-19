@@ -215,7 +215,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 String post_id = strings[0];
                 String content = strings[1];
-                String user_id = "yusin";
+                String user_id = "yuyu";
 
                 LocalDateTime now = LocalDateTime.now();
                 String createAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
@@ -353,29 +353,60 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 Statement stmt3 = connection.createStatement();
                 ResultSet rs3 = stmt3.executeQuery(sql3);
 
-                Log.d("Post", reco_user);
+                while (rs3.next()) {
+                    int origin = rs3.getInt("retweet_post");
+                    if (origin != 0) { // 리트윗 포스트
+                        Log.d("Post", "origin " + origin);
+                        String sql4 = "select * from post, user where post.writer_id = user.id and post_id = \"" + origin + "\"";
+                        Statement stmt4 = connection.createStatement();
+                        ResultSet rs4 = stmt4.executeQuery(sql4);
 
-                if(rs3.next()){
-                    int post_id = rs3.getInt("post_id");
-                    String content = rs3.getString("content");
-                    String nickname = rs3.getString("nickname");
-                    String written_date = rs3.getString("written_date");
-                    int num_of_likes = rs3.getInt("num_of_likes");
-                    int retweet_num = rs3.getInt("retweet_num");
+                        if(rs4.next()){
+                            String writer_id = rs4.getString("writer_id");
+                            String nickname = rs4.getString("nickname");
+                            String content = rs4.getString("content");
+                            String written_date = rs4.getString("written_date");
+                            int num_of_likes = rs4.getInt("num_of_likes");
+                            int retweet_num = rs4.getInt("retweet_num");
 
-                    // 파일 있으면 가져오기
-                    sql = "select * from file where post_id = " + post_id;
-                    PreparedStatement statement1 = connection.prepareStatement(sql);
-                    ResultSet resultSet2 = statement1.executeQuery();
+                            Log.d("Post", "retweet_num " + retweet_num);
 
-                    ArrayList<String> fileList = new ArrayList<>();
-                    while(resultSet2.next()){
-                        String file = resultSet2.getString("file");
-                        fileList.add(file);
+                            // 파일 있으면 가져오기
+                            sql = "select * from file where post_id = " + origin;
+                            PreparedStatement statement1 = connection.prepareStatement(sql);
+                            ResultSet resultSet2 = statement1.executeQuery();
+
+                            ArrayList<String> fileList = new ArrayList<>();
+                            while (resultSet2.next()) {
+                                String file = resultSet2.getString("file");
+                                fileList.add(file);
+                            }
+
+                            post = new Post(origin, writer_id, nickname, content, fileList, written_date, num_of_likes, retweet_num, null);
+                            return  post;
+                        }
+                    }else{
+                        int post_id = rs3.getInt("post_id");
+                        String content = rs3.getString("content");
+                        String nickname = rs3.getString("nickname");
+                        String written_date = rs3.getString("written_date");
+                        int num_of_likes = rs3.getInt("num_of_likes");
+                        int retweet_num = rs3.getInt("retweet_num");
+
+                        // 파일 있으면 가져오기
+                        sql = "select * from file where post_id = " + post_id;
+                        PreparedStatement statement1 = connection.prepareStatement(sql);
+                        ResultSet resultSet2 = statement1.executeQuery();
+
+                        ArrayList<String> fileList = new ArrayList<>();
+                        while(resultSet2.next()){
+                            String file = resultSet2.getString("file");
+                            fileList.add(file);
+                        }
+
+                        post = new Post(post_id, reco_user, nickname, content, fileList, written_date, num_of_likes, retweet_num, null);
+                        return post;
                     }
-
-                    post = new Post(post_id, reco_user, nickname, content, fileList, written_date, num_of_likes, retweet_num, null);
-                    return post;
                 }
 
             } catch (Exception e) {
@@ -388,15 +419,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         @Override
         protected void onPostExecute(Post post) {
             if (post != null) {
-                Log.d("Post", "post2 - " +  post.content);
+                Log.d("Post", "post2 - " +  post.content + "retwet - " + post.retweet_num);
 
                 binding.itemPostProfileTv.setText(post.nickname);
                 binding.itemPostUseridTv.setText("@" + post.writer_id);
                 binding.itemPostContentTv.setText(post.content);
 
-                if (post.num_of_likes > 0) binding.itemPostLikeTv.setText(post.num_of_likes);
+                if (post.num_of_likes > 0) binding.itemPostLikeTv.setText(""+ post.num_of_likes);
                 else binding.itemPostLikeTv.setText("");
-                if (post.retweet_num > 0) binding.itemPostRetweetTv.setText(post.retweet_num);
+                if (post.retweet_num > 0) binding.itemPostRetweetTv.setText("" + post.retweet_num);
                 else binding.itemPostRetweetTv.setText("");
 
                 PostImageRVAdapter postImageRVAdapter = new PostImageRVAdapter(requireContext(), post.fileList);
