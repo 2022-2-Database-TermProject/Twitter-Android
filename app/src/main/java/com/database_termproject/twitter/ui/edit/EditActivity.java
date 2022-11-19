@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.database_termproject.twitter.databinding.ActivityEditBinding;
 import com.database_termproject.twitter.ui.BaseActivity;
+import com.database_termproject.twitter.ui.adapter.InterestRVAdapter;
 import com.database_termproject.twitter.ui.post.PostActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,11 +45,12 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
     String region_id = "";
     boolean account_private;
     String image = "";
-
     Uri newImageUri = null;
 
     ArrayList<String> interests = new ArrayList<>();
+    ArrayList<String> newInterests = new ArrayList<>();
 
+    InterestRVAdapter interestRVAdapter;
     @Override
     protected ActivityEditBinding getBinding() {
         return ActivityEditBinding.inflate(getLayoutInflater());
@@ -58,7 +60,10 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
     protected void initAfterBinding() {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
+
         setMyClickListener();
+        interestRVAdapter = new InterestRVAdapter(this);
+        binding.editInterestRv.setAdapter(interestRVAdapter);
     }
 
     @Override
@@ -89,6 +94,7 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
             public void onClick(View view) {
                 nickname = binding.editNicknameEt.getText().toString();
                 account_private = binding.editPublicSb.isChecked();
+                newInterests = interestRVAdapter.getInterestList();
 
                 if(newImageUri != null){
                     uploadImages(newImageUri);
@@ -178,8 +184,6 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
                     while (resultSet2.next()) {
                         interests.add(resultSet2.getString("interest_id"));
                     }
-
-
                     return true;
                 }
             } catch (Exception e) {
@@ -203,6 +207,10 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
                             .apply(new RequestOptions().circleCrop())
                             .into(binding.editProfileIv);
                 }
+
+                // 관심사
+                interestRVAdapter.addInterestList(interests);
+                newInterests = interests; // 초기 상태 저장
             }
 
             this.cancel(true);
@@ -216,6 +224,7 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
         protected Boolean doInBackground(Void... voids) {
             String user_id = "yusin";
 
+            // 유저 정보 update
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 String sql = "update user set nickname = \"" + nickname + "\", " +
                         " region_id = \"" + region_id + "\", " +
@@ -225,6 +234,38 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.executeUpdate();
+
+                String last = "";
+                for(String interest: interests){
+                    last += interest + ", ";
+                }
+
+                String after = "";
+                for(String interest: newInterests){
+                    after += interest + ", ";
+                }
+
+                Log.d("Edit-기존", last);
+                Log.d("Edit-다음", after);
+
+                // 관심사 정보 update
+                for(String newInterest: newInterests){
+                    if(!interests.contains(newInterest)){ // select 추가
+                        Log.d("Edit-추가", newInterest);
+                        String sql2 = "insert into user_has_interest (user_id, interest_id) values (\"" + user_id + "\", \"" + newInterest + "\")";
+                        PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+                        preparedStatement2.executeUpdate();
+                    }
+                }
+
+                for(String interest: interests){
+                    if(!newInterests.contains(interest)){ // select 삭제
+                        Log.d("Edit-삭제", interest);
+                        String sql2 = "delete from user_has_interest where user_id = \"" + user_id + "\" and interest_id = \"" + interest + "\"";
+                        PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+                        preparedStatement2.executeUpdate();
+                    }
+                }
 
                 return true;
 
