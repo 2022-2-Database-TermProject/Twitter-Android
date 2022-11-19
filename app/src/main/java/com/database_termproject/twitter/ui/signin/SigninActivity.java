@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.database_termproject.twitter.R;
@@ -46,8 +47,19 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+        TextView findPWButton = findViewById(R.id.find_pw_btn);
+        findPWButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent myIntent = new Intent(getApplicationContext(), FindPassWordActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
         editTextID = findViewById(R.id.textInputEditTextID);
         editTextPW = findViewById(R.id.textInputEditTextPassword);
+
 
         loginButton = findViewById(R.id.buttonLogin);
         loginButton.setOnClickListener(new View.OnClickListener() {
