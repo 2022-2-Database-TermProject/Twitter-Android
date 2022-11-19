@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.database_termproject.twitter.R;
 
-public class MypageFragment2 extends Fragment {
+public class UserpageFragment2 extends Fragment {
 
     @Nullable
     @Override

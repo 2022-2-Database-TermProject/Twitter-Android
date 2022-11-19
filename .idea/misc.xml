@@ -53,6 +53,7 @@
         <entry key="app/src/main/res/drawable-v24/selector_navi_mypage.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/bg_black_circle.xml" value="0.245" />
         <entry key="app/src/main/res/drawable/bg_blue_square.xml" value="0.245" />
+        <entry key="app/src/main/res/drawable/bg_check_follow.xml" value="0.245" />
         <entry key="app/src/main/res/drawable/bg_check_interest.xml" value="0.245" />
         <entry key="app/src/main/res/drawable/bg_check_not_selection.xml" value="0.245" />
         <entry key="app/src/main/res/drawable/bg_check_selection.xml" value="0.245" />
@@ -76,6 +77,7 @@
         <entry key="app/src/main/res/drawable/ic_search_off.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/ic_twitter.xml" value="0.2995" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.245" />
+        <entry key="app/src/main/res/layout/activity_edit.xml" value="0.3123262279888786" />
         <entry key="app/src/main/res/layout/activity_example.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_find_password.xml" value="0.2790740627567704" />
         <entry key="app/src/main/res/layout/activity_interest.xml" value="0.3835998535156249" />
@@ -88,15 +90,24 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/bg_check_interest.xml" value="0.33133817870884996" />
         <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/fragment_delete_dialog.xml" value="0.3507797241210938" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.33839263916015627" />
+        <entry key="app/src/main/res/layout/fragment_mypage_bookmark.xml" value="0.16404077849860982" />
+        <entry key="app/src/main/res/layout/fragment_mypage_like.xml" value="0.16404077849860982" />
+        <entry key="app/src/main/res/layout/fragment_mypage_retweet.xml" value="0.16404077849860982" />
+        <entry key="app/src/main/res/layout/fragment_mypage_tweet.xml" value="0.16404077849860982" />
+        <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.3123262279888786" />
         <entry key="app/src/main/res/layout/fragment_post_detail.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/fragment_retweet_dialog.xml" value="0.33133817870884996" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_search_after.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_search_before.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/fragment_userpage.xml" value="0.33133817870884996" />
         <entry key="app/src/main/res/layout/item_album.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/item_follow.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/item_retweet.xml" value="0.3271422541156606" />
         <entry key="app/src/main/res/layout/item_search.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/toolbar_login.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/toolbar_logincancel.xml" value="0.4036458333333333" />
