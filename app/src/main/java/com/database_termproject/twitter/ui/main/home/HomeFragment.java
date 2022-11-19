@@ -3,6 +3,7 @@ package com.database_termproject.twitter.ui.main.home;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.getUserId;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -169,19 +170,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 int post_id = integers[0];
                 // 기존에 좋아요 했는지 확인
                 Statement stmt = connection.createStatement();
-                String check = "select * from post_like where user_id = \""+ "yusin" +"\" and target_id = \""+ post_id +"\"";
+                String check = "select * from post_like where user_id = \""+ getUserId() +"\" and target_id = \""+ post_id +"\"";
                 ResultSet rs = stmt.executeQuery(check);
 
                 if(rs.next()){ // 좋아요 O, 좋아요 취소
                     String sql1 = "update post set num_of_likes = num_of_likes - 1 where post_id = \""+ post_id +"\"";
-                    String sql2 = "delete from post_like where target_id = \""+ post_id  +"\" and user_id = \""+ "yusin" +"\"";
+                    String sql2 = "delete from post_like where target_id = \""+ post_id  +"\" and user_id = \""+ getUserId() +"\"";
 
                     PreparedStatement pstm = connection.prepareStatement(sql1);
                     pstm.executeUpdate();
                     pstm.executeUpdate(sql2);
                 }else{         // 좋아요 X, 좋아요 추가
                     String sql1 = "update post set num_of_likes = num_of_likes + 1 where post_id = \""+ post_id +"\"";
-                    String sql2 = "insert into post_like values(\""+ "yusin" +"\", \""+ post_id +"\")";
+                    String sql2 = "insert into post_like values(\""+ getUserId() +"\", \""+ post_id +"\")";
 
                     PreparedStatement pstm = connection.prepareStatement(sql1);
                     pstm.executeUpdate();
@@ -215,7 +216,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 String post_id = strings[0];
                 String content = strings[1];
-                String user_id = "yuyu";
+                String user_id = getUserId();
 
                 LocalDateTime now = LocalDateTime.now();
                 String createAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
@@ -291,7 +292,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     public class GetRecommendPostAsyncTask extends AsyncTask<Void, Void, Post> {
         @Override
         protected Post doInBackground(Void... voids) {
-            String user_id = "yusin";
+            String user_id = getUserId();
             String user_region = "";
             Post post;
 

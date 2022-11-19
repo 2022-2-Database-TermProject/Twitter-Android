@@ -3,6 +3,7 @@ package com.database_termproject.twitter.ui.main.search;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.getUserId;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -64,7 +65,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     public class GetRecommendedUserAsyncTask extends AsyncTask<Void, Void, ArrayList<User>> {
         @Override
         protected ArrayList<User> doInBackground(Void... voids) {
-            String user_id = "yusin";
+            String user_id = getUserId();
             String user_region = "";
             ArrayList<User> userList = new ArrayList<>();
 

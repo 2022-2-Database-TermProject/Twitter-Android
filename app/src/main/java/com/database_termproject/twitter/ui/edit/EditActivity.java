@@ -3,6 +3,7 @@ package com.database_termproject.twitter.ui.edit;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.getUserId;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -127,7 +128,7 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
     }
 
     // Firebase에 이미지 올리기
-    String user_id = "yusin";
+    String user_id = getUserId();
 
     private void uploadImages(Uri uri) {
         String fileName = "profile/" + user_id + "_" + System.currentTimeMillis() + ".jpg";
@@ -164,7 +165,7 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
     public class GetUserAsyncTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {
-            String user_id = "yusin";
+            String user_id = getUserId();
 
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 String sql = "select id, nickname, region_id, private, image from user where id =  \"" + user_id + "\"";
@@ -222,7 +223,7 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
     public class UpdateUserAsyncTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {
-            String user_id = "yusin";
+            String user_id = getUserId();
 
             // 유저 정보 update
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {

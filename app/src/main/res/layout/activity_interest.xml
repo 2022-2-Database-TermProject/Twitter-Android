@@ -46,7 +46,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.03"
-        android:background="@color/light_gray"/>
+        android:background="@color/light_gray"
+        android:visibility="invisible"/>
 
 
     <androidx.appcompat.widget.AppCompatButton

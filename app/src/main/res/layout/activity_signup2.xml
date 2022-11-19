@@ -1,227 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <include  layout="@layout/toolbar_logincancel"/>
-
+    <include
+        android:id="@+id/signup_top"
+        layout="@layout/toolbar_logincancel" />
 
     <TextView
         android:id="@+id/textViewSignUp2"
+        style="@style/tv_b_16"
         android:layout_width="315dp"
         android:layout_height="41dp"
+        android:layout_marginTop="20dp"
         android:lineSpacingExtra="5dp"
-        style="@style/tv_b_16"
         android:text=" 계정을 생성하세요."
-        android:textSize="23dp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintTop_toBottomOf="@id/signup_top" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/textInputLayout2_5"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="ID"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="custom"
-        app:endIconCheckable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.25">
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/signup_bottom_v"
+        app:layout_constraintTop_toBottomOf="@id/textViewSignUp2">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputID2"
-            style="@style/tv_16"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="199dp" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="아이디"
+                app:boxBackgroundColor="@color/white"
+                app:endIconCheckable="true"
+                app:endIconMode="custom"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/textInputLayout2_6"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputID2"
+                    style="@style/tv_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="199dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/signup_error_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="이미 존재하는 유저입니다"
+                style="@style/tv_12"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout_id"
+                app:layout_constraintStart_toStartOf="@id/textInputLayout_id" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="비밀번호"
+                app:boxBackgroundColor="@color/white"
+                app:endIconCheckable="true"
+                app:endIconMode="custom"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/signup_error_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputPW2"
+                    style="@style/tv_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="199dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_nickname"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="닉네임"
+                app:boxBackgroundColor="@color/white"
+                app:endIconCheckable="true"
+                app:endIconMode="custom"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputName2"
+                    style="@style/tv_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="199dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_phone_or_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="휴대폰 번호 또는 이메일 주소"
+                app:boxBackgroundColor="@color/white"
+                app:endIconCheckable="true"
+                app:endIconMode="custom"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout_nickname"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputPhone"
+                    style="@style/tv_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="199dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_age"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="나이"
+                app:boxBackgroundColor="@color/white"
+                app:endIconCheckable="true"
+                app:endIconMode="custom"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout_phone_or_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputAge2"
+                    style="@style/tv_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="199dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_region"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="국가"
+                app:boxBackgroundColor="@color/white"
+                app:endIconCheckable="true"
+                app:endIconMode="custom"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout_age"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputaddress2"
+                    style="@style/tv_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="199dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="PassWord"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="custom"
-        app:endIconCheckable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.35">
+        android:layout_height="1dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@id/signup_bottom_v"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputPW2"
-            style="@style/tv_16"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="199dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/textInputLayout2_1"
+    <View
+        android:id="@+id/signup_bottom_v"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="닉네임"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="custom"
-        app:endIconCheckable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.45">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputName2"
-            style="@style/tv_16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="199dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/textInputLayout2_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="휴대폰 번호 또는 이메일 주소"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="custom"
-        app:endIconCheckable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.55">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/tv_16"
-            android:inputType="phone"
-            tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="199dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/textInputLayout2_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="나이"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="custom"
-        app:endIconCheckable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.65">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputAge2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            style="@style/tv_16"
-            tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="199dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:id="@+id/textInputLayout2_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="국가"
-        app:boxBackgroundColor="@color/white"
-        app:endIconMode="custom"
-        app:endIconCheckable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.75">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputaddress2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            style="@style/tv_16"
-            tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="199dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
+        android:layout_height="80dp"
+        android:background="@color/white_light"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/changeEmail"
+        style="@style/tv_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:gravity="center"
         android:minHeight="48dp"
         android:text="대신 이메일 사용하기"
         android:textColor="@color/black"
-        android:gravity="center"
-        style="@style/tv_14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903" />
+        app:layout_constraintTop_toTopOf="@id/signup_bottom_v" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonNext2"
+        style="@style/tv_14"
         android:layout_width="70dp"
         android:layout_height="48dp"
         android:background="@drawable/bg_black_circle"
         android:text="다음"
-        style="@style/tv_14"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.865"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toTopOf="@id/signup_bottom_v" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

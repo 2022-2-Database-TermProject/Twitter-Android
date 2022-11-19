@@ -4,6 +4,7 @@ package com.database_termproject.twitter.ui.signin;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.saveUserId;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -38,6 +39,7 @@ public class SignUp1Activity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextAge;
 
+    TextView errorTv;
     Button nextButton;
 
 
@@ -64,13 +66,13 @@ public class SignUp1Activity extends AppCompatActivity {
         editTextID = findViewById(R.id.textInputID1);
         editTextPW = findViewById(R.id.textInputPW1);
         editTextRegion = findViewById(R.id.textInputaddress1);
-
+        errorTv = findViewById(R.id.signup1_error_tv);
 
         TextView emailToPhone = findViewById(R.id.changePhoneNumber);
         emailToPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getApplicationContext(),SignUp2Activity.class);
+                Intent myIntent = new Intent(getApplicationContext(), SignUp2Activity.class);
                 startActivity(myIntent);
             }
         });
@@ -107,7 +109,7 @@ public class SignUp1Activity extends AppCompatActivity {
 
                 if (rs.next()) {
                     result = "Already exist!";
-                }else{
+                } else {
                     // name, age, nickname, region
                     String age = editTextAge.getText().toString();
                     String nickname = editTextNickname.getText().toString();
@@ -115,13 +117,14 @@ public class SignUp1Activity extends AppCompatActivity {
                     String email = editTextEmail.getText().toString();
 
                     // 이메일 넣는 경우 쿼리
-                    query = "insert into user (id, pwd, age, nickname, email, region_id) values ('"+userId + "', '" + password + "', '" +age+"', '"
-                            +nickname +"', '" + email + "','" + region + "')";
+                    query = "insert into user (id, pwd, age, nickname, email, region_id) values ('" + userId + "', '" + password + "', '" + age + "', '"
+                            + nickname + "', '" + email + "','" + region + "')";
 
                     PreparedStatement pstm = connection.prepareStatement(query);
                     pstm.executeUpdate();
 
-                    result ="Sign up complete";
+                    saveUserId(userId);
+                    result = "Sign up complete";
                 }
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading school information", e);
@@ -136,9 +139,13 @@ public class SignUp1Activity extends AppCompatActivity {
 
             this.cancel(true);
 
-            Intent myIntent = new Intent(getApplicationContext(),InterestActivity.class);
-            startActivity(myIntent);
-
+            if (result.equals("Sign up complete")) {
+                errorTv.setVisibility(View.GONE);
+                Intent myIntent = new Intent(getApplicationContext(), InterestActivity.class);
+                startActivity(myIntent);
+            } else if (result.equals("Already exist!")) {
+                errorTv.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

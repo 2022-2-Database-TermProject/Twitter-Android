@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startNextActivity(MainActivity.class);
+                startNextActivity(SigninActivity.class);
                 finish();
             }
         }, 1000);
