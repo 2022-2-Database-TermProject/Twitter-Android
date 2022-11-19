@@ -1,6 +1,5 @@
 package com.database_termproject.twitter.ui.main.mypage;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.database_termproject.twitter.R;
 
-public class MypageFragment2 extends Fragment {
+public class MypageTweetFragment extends Fragment {
 
     @Nullable
     @Override

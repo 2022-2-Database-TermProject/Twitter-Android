@@ -1,150 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/mypage_collasp_layout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="exitUntilCollapsed"
-            android:background="@color/white">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/mypage_collasp_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
-                    android:id="@+id/back_image"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:src="@drawable/bg_blue_square"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/mypage_user_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="100dp"
-                    android:background="@drawable/ic_user"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/back_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:src="@drawable/bg_blue_square"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/mypage_user_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="넷플릭스"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_user_profile"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    style="@style/tv_b_16" />
+                    <ImageView
+                        android:id="@+id/mypage_user_profile"
+                        android:layout_width="60dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/ic_user"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/mypage_user_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\@netflix"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_user_nickname"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:id="@+id/mypage_user_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="넷플릭스"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mypage_user_profile"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        style="@style/tv_b_16" />
 
-                <TextView
-                    android:id="@+id/registration_date"
-                    style="@style/tv_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:drawableLeft="@drawable/ic_mapping"
-                    android:gravity="center"
-                    android:text=" 대한민국"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mypage_user_id"
-                    android:layout_marginStart="26dp" />
+                    <TextView
+                        android:id="@+id/mypage_user_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="\@netflix"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mypage_user_nickname"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="5dp"/>
 
-                <TextView
-                    style="@style/tv_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text=" 1 팔로잉 0 팔로워"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/registration_date" />
+                    <TextView
+                        android:id="@+id/registration_date"
+                        style="@style/tv_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:drawableLeft="@drawable/ic_mapping"
+                        android:gravity="center"
+                        android:text=" 대한민국"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mypage_user_id"
+                        android:layout_marginStart="26dp" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    style="@style/tv_b_14"
-                    android:layout_width="109dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="128dp"
-                    android:layout_marginEnd="26dp"
-                    android:background="@drawable/bg_check_not_selection"
-                    android:text="프로필 수정"
-                    android:id="@+id/change_profile"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        style="@style/tv_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text=" 1 팔로잉 0 팔로워"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/registration_date" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        style="@style/tv_b_14"
+                        android:layout_width="109dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="128dp"
+                        android:layout_marginEnd="26dp"
+                        android:background="@drawable/bg_check_not_selection"
+                        android:text="프로필 수정"
+                        android:id="@+id/change_profile"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs1"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/mypage_tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:tabSelectedTextColor="@color/blue"
+                app:tabIndicatorColor="@color/blue"
+                app:layout_anchor="@+id/appbar"
+                app:tabRippleColor="#00FF0000"
+                app:layout_scrollFlags="enterAlways"
+                app:layout_anchorGravity="center">
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mypage_vp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:tabSelectedTextColor="@color/blue"
-            app:tabIndicatorColor="@color/blue"
-            app:layout_anchor="@+id/appbar"
-            app:layout_scrollFlags="enterAlways"
-            app:layout_anchorGravity="center">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="트윗" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="리트윗" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="북마크" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="좋아요" />
-
-        </com.google.android.material.tabs.TabLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
-        android:id="@+id/mypage_detail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:layout_marginTop="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

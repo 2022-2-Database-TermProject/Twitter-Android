@@ -1,78 +1,54 @@
 package com.database_termproject.twitter.ui.main.mypage;
 
 
-import static androidx.databinding.DataBindingUtil.setContentView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
+import androidx.viewpager2.widget.ViewPager2;
 import com.database_termproject.twitter.R;
-import com.database_termproject.twitter.databinding.FragmentHomeBinding;
-import com.database_termproject.twitter.ui.BaseFragment;
-import com.database_termproject.twitter.ui.post.PostActivity;
+import com.database_termproject.twitter.ui.adapter.MypageVPAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import java.util.ArrayList;
 
 public class MypageFragment extends Fragment {
-
-    Fragment fragment1, fragment2, fragment3, fragment4;
+    View view;
+    MypageVPAdapter mypageVPAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
+        view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        fragment1 = new MypageFragment1();
-        fragment2 = new MypageFragment2();
-        fragment3 = new MypageFragment3();
-        fragment4 = new MypageFragment4();
+        initVP();
 
-        TabLayout tabs = view.findViewById(R.id.tabs1);
-
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                int position = tab.getPosition();
-
-                Fragment selected = null;
-                if (position == 0) {
-
-                    selected = fragment1;
-
-                } else if (position == 1) {
-
-                    selected = fragment2;
-
-                } else if (position == 2) {
-
-                    selected = fragment3;
-
-                } else if (position == 3) {
-
-                    selected = fragment4;
-                }
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-
-        });
         return view;
+    }
+
+
+    private void initVP(){
+        mypageVPAdapter = new MypageVPAdapter(this);
+
+        ViewPager2 viewPager2 = view.findViewById(R.id.mypage_vp);
+        viewPager2.setAdapter(mypageVPAdapter);
+
+
+        ArrayList<String> tabs = new ArrayList<>();
+        tabs.add("트윗");
+        tabs.add("리트윗");
+        tabs.add("좋아요");
+
+        TabLayout tabLayout = view.findViewById(R.id.mypage_tablayout);
+        new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+               tab.setText(tabs.get(position));
+            }
+        }).attach();
     }
 }
