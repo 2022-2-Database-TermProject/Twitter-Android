@@ -1,94 +1,92 @@
 package com.database_termproject.twitter.ui.main.mypage;
 
-
-import static androidx.databinding.DataBindingUtil.setContentView;
-
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.database_termproject.twitter.R;
-import com.database_termproject.twitter.databinding.FragmentHomeBinding;
+import com.database_termproject.twitter.databinding.FragmentUserpageBinding;
 import com.database_termproject.twitter.ui.BaseFragment;
-import com.database_termproject.twitter.ui.post.PostActivity;
+import com.database_termproject.twitter.ui.adapter.MypageVPAdapter;
+import com.database_termproject.twitter.ui.adapter.UserpageVPAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-public class UserpageFragment extends Fragment {
+import java.util.ArrayList;
 
-    Fragment fragment1, fragment2, fragment3;
+public class UserpageFragment extends BaseFragment<FragmentUserpageBinding> {
+    String args;
 
-    CheckBox followBtn;
+    UserpageVPAdapter userpageVPAdapter;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
+    protected FragmentUserpageBinding getBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentUserpageBinding.inflate(inflater, container, false);
+    }
 
-        fragment1 = new UserpageFragment1();
-        fragment2 = new UserpageFragment2();
-        fragment3 = new UserpageFragment3();
+    @Override
+    protected void initAfterBinding() {
+        args = UserpageFragmentArgs.fromBundle(getArguments()).getUserId();
+        initVP();
+        setMyClickListener();
 
-        followBtn = view.findViewById(R.id.user_follow);
+        showToast(args);
+    }
 
-        followBtn.setOnClickListener(new View.OnClickListener() {
+    private void initVP(){
+        ArrayList<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(new UserpageTweetFragment(args));
+        fragmentList.add(new UserpageRetweetFragment(args));
+        fragmentList.add(new UserpageLikeFragment(args));
+
+        userpageVPAdapter = new UserpageVPAdapter(this, fragmentList);
+        binding.userpageVp.setAdapter(userpageVPAdapter);
+
+        ArrayList<String> tabs = new ArrayList<>();
+        tabs.add("트윗");
+        tabs.add("리트윗");
+        tabs.add("좋아요");
+
+        new TabLayoutMediator(binding.userpageTablayout, binding.userpageVp, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(tabs.get(position));
+            }
+        }).attach();
+    }
+
+    private void setMyClickListener(){
+        // Follow 클릭 시,
+        binding.userpageFollowTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (((CheckBox)view).isChecked()) {
-                    followBtn.setText("언팔로우");
-                    followBtn.setTextColor(Color.BLACK);
-                } else {
-                    followBtn.setTextColor(Color.WHITE);
-                }
+            }
+        });
+
+        // Unfollow 클릭 시,
+        binding.userpageUnfollowTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });
 
-        TabLayout tabs = view.findViewById(R.id.tabs);
-
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        // Unwait 클릭 시,
+        binding.userpageWaitTv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                int position = tab.getPosition();
-
-                Fragment selected = null;
-                if (position == 0) {
-
-                    selected = fragment1;
-
-                } else if (position == 1) {
-
-                    selected = fragment2;
-
-                } else if (position == 2) {
-
-                    selected = fragment3;
-
-                }
+            public void onClick(View view) {
 
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-
         });
-        return view;
     }
+
+    // TODO: 유저 정보 조회 JDBC
+    // TODO: 팔로우 JDBC
+    // TODO: 언팔로우 JDBC
+    // TODO: 팔로우 대기 취소 JDBC
 }

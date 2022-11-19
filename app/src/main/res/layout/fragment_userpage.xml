@@ -1,147 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="exitUntilCollapsed"
-            android:background="@color/white">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/userpage_collasp_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
-                    android:id="@+id/back_image"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:src="@drawable/bg_blue_square"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/mypage_user_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="100dp"
-                    android:background="@drawable/ic_user"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/back_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:src="@drawable/bg_blue_square"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/mypage_user_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="넷플릭스"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_user_profile"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    style="@style/tv_b_16" />
+                    <ImageView
+                        android:id="@+id/userpage_profile_background_iv"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/bg_white_circle"
+                        app:layout_constraintBottom_toBottomOf="@id/userpage_user_profile"
+                        app:layout_constraintEnd_toEndOf="@id/userpage_user_profile"
+                        app:layout_constraintStart_toStartOf="@id/userpage_user_profile"
+                        app:layout_constraintTop_toTopOf="@id/userpage_user_profile" />
 
-                <TextView
-                    android:id="@+id/mypage_user_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="\@netflix"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mypage_user_nickname"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginTop="5dp"/>
+                    <ImageView
+                        android:id="@+id/userpage_user_profile"
+                        android:layout_width="60dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/ic_user"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/registration_date"
-                    style="@style/tv_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:drawableLeft="@drawable/ic_mapping"
-                    android:gravity="center"
-                    android:text=" 대한민국"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mypage_user_id"
-                    android:layout_marginStart="26dp" />
+                    <TextView
+                        android:id="@+id/userpage_user_nickname"
+                        style="@style/tv_b_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="10dp"
+                        android:text="넷플릭스"
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/userpage_user_profile" />
 
-                <TextView
-                    style="@style/tv_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text=" 1 팔로잉 0 팔로워"
-                    app:layout_constraintTop_toBottomOf="@+id/registration_date"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="26dp" />
+                    <TextView
+                        android:id="@+id/userpage_user_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="5dp"
+                        android:text="\@netflix"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/userpage_user_nickname" />
 
-                <CheckBox
-                    style="@style/tv_b_14"
-                    android:layout_width="109dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="128dp"
-                    android:layout_marginEnd="26dp"
-                    android:button="@null"
-                    android:checked="false"
-                    android:enabled="true"
-                    android:gravity="center"
-                    android:background="@drawable/bg_check_follow"
-                    android:text="팔로우"
-                    android:id="@+id/user_follow"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/registration_date"
+                        style="@style/tv_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="20dp"
+                        android:drawableLeft="@drawable/ic_mapping"
+                        android:gravity="center"
+                        android:text=" 대한민국"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userpage_user_id" />
+
+                    <TextView
+                        android:id="@+id/userpage_following_tv"
+                        style="@style/tv_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text=" 1 팔로잉 0 팔로워"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/registration_date" />
+
+                    <!--  팔로잉 버튼  -->
+                    <TextView
+                        android:id="@+id/userpage_follow_tv"
+                        style="@style/tv_b_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/bg_black_round_btn"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="8dp"
+                        android:text="팔로우"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/userpage_user_nickname"/>
+
+                    <TextView
+                        android:id="@+id/userpage_unfollow_tv"
+                        style="@style/tv_b_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/bg_check_not_selection"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="8dp"
+                        android:text="팔로잉"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/userpage_user_nickname"/>
+
+                    <TextView
+                        android:id="@+id/userpage_wait_tv"
+                        style="@style/tv_b_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/bg_check_not_selection"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="8dp"
+                        android:text="승인 대기중"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/userpage_user_nickname" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/userpage_following_tv" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/userpage_tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="10dp"
+                app:layout_anchor="@+id/appbar"
+                app:layout_anchorGravity="center"
+                app:layout_scrollFlags="enterAlways"
+                app:tabIndicatorColor="@color/blue"
+                app:tabRippleColor="#00FF0000"
+                app:tabSelectedTextColor="@color/blue" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/userpage_vp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:tabSelectedTextColor="@color/blue"
-            app:tabIndicatorColor="@color/blue"
-            app:layout_anchor="@+id/appbar"
-            app:layout_scrollFlags="enterAlways"
-            app:layout_anchorGravity="center">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="트윗" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="리트윗" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="좋아요" />
-
-        </com.google.android.material.tabs.TabLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
-        android:id="@+id/mypage_detail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

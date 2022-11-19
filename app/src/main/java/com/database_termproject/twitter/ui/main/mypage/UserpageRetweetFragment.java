@@ -11,12 +11,17 @@ import androidx.fragment.app.Fragment;
 
 import com.database_termproject.twitter.R;
 
-public class UserpageFragment3 extends Fragment {
+public class UserpageRetweetFragment extends Fragment {
+
+    public String user_id;
+    public UserpageRetweetFragment(String user_id){
+        this.user_id = user_id;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mypage_like, container, false);
+        View view = inflater.inflate(R.layout.fragment_userpage_retweet, container, false);
 
         return view;
     }

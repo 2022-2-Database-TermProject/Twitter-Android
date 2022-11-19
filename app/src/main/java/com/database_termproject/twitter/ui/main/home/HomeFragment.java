@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavAction;
 import androidx.navigation.NavDirections;
 
 import com.database_termproject.twitter.data.Post;
@@ -67,6 +68,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         homePostRVAdapter = new PostRVAdapter(requireContext());
         binding.homePostRv.setAdapter(homePostRVAdapter);
         homePostRVAdapter.setMyClickListener(new PostRVAdapter.MyItemClickListener() {
+            @Override
+            public void showUser(@NonNull String userId) {
+                HomeFragmentDirections.ActionHomeFragmentToUserpageFragment action = HomeFragmentDirections.actionHomeFragmentToUserpageFragment(userId);
+                findNavController().navigate(action);
+            }
+
             @Override
             public void delete(@NonNull Post post) { // 더보기 클릭 시, 포스트 삭제 모달 띄우기
                 showDeleteDialog(post);

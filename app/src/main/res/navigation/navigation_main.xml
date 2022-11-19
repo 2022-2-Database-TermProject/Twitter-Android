@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_homeFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userpageFragment"
+            app:destination="@id/userpageFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -19,6 +22,9 @@
         <action
             android:id="@+id/action_searchFragment_to_searchAfterFragment"
             app:destination="@id/searchAfterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_userpageFragment"
+            app:destination="@id/userpageFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -44,6 +50,17 @@
         android:label="PostDetailFragment">
         <argument
             android:name="post_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_userpageFragment"
+            app:destination="@id/userpageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userpageFragment"
+        android:name="com.database_termproject.twitter.ui.main.mypage.UserpageFragment"
+        android:label="UserpageFragment" >
+        <argument
+            android:name="user_id"
             app:argType="string" />
     </fragment>
 </navigation>
