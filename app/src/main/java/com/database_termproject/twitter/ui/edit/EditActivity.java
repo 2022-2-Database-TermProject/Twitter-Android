@@ -123,6 +123,11 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
                 newImageUri = null;
             } else {// 이미지를 하나라도 선택한 경우
                 newImageUri = (Uri) data.getData();
+
+                Glide.with(binding.getRoot())
+                        .load(newImageUri)
+                        .apply(new RequestOptions().circleCrop())
+                        .into(binding.editProfileIv);
             }
         }
     }
