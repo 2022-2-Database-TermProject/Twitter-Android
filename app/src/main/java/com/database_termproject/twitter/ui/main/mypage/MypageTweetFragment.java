@@ -126,7 +126,7 @@ public class MypageTweetFragment extends BaseFragment<FragmentMypageTweetBinding
             ResultSet rs = null;
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 Log.e("test", "2");
-                String sql = "select * from post where writer_id = \'" + user_id + "\';";
+                String sql = "select * from post, user where writer_id = \'" + user_id + "\' and id = \'" + user_id + "\'";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
 
@@ -143,7 +143,7 @@ public class MypageTweetFragment extends BaseFragment<FragmentMypageTweetBinding
                         fileList.add(file);
                     }
 
-                    Post post = new Post(resultSet.getInt("post_id"), resultSet.getString("writer_id"),null, resultSet.getString("content"), fileList,resultSet.getString("written_date"), resultSet.getInt("num_of_likes"), resultSet.getInt("retweet_num"), resultSet.getInt("retweet_post"));
+                    Post post = new Post(resultSet.getInt("post_id"), resultSet.getString("writer_id"),resultSet.getString("nickname"), resultSet.getString("content"), fileList,resultSet.getString("written_date"), resultSet.getInt("num_of_likes"), resultSet.getInt("retweet_num"), resultSet.getInt("retweet_post"));
                     postList.add(post);
                 }
             } catch (Exception e) {
