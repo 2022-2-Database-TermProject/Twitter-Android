@@ -3,6 +3,7 @@ package com.database_termproject.twitter.ui.post;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.getUserId;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -49,7 +50,7 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
     ArrayList<Uri> uriList = new ArrayList<>();
     ArrayList<String> imgList = new ArrayList<>();
 
-    String userId = "yusin";
+    String userId = getUserId();
     String content = "";
 
     PostAlbumRVAdapter postAlbumRVAdapter = null;
@@ -64,6 +65,7 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
 
+        binding.newpostUseridTv.setText("@" + getUserId());
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

@@ -1,5 +1,7 @@
 package com.database_termproject.twitter.ui.splash;
 
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.getUserId;
+
 import com.database_termproject.twitter.databinding.ActivitySplashBinding;
 import com.database_termproject.twitter.ui.BaseActivity;
 import com.database_termproject.twitter.ui.example.ExampleActivity;
@@ -21,7 +23,12 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startNextActivity(MainActivity.class);
+                if(getUserId()!=null)
+                    startNextActivity(MainActivity.class);
+                else
+                    startNextActivity(SigninActivity.class);
+
+
                 finish();
             }
         }, 1000);

@@ -3,6 +3,7 @@ package com.database_termproject.twitter.ui.signin;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.saveUserId;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,6 +34,8 @@ public class SignUp2Activity extends AppCompatActivity {
     EditText editTextRegion;
     EditText editTextPhone;
     EditText editTextAge;
+
+    TextView errorTv ;
 
     Button nextButton;
 
@@ -71,6 +74,7 @@ public class SignUp2Activity extends AppCompatActivity {
         editTextID = findViewById(R.id.textInputID2);
         editTextPW = findViewById(R.id.textInputPW2);
         editTextRegion = findViewById(R.id.textInputaddress2);
+        errorTv = findViewById(R.id.signup_error_tv);
 
         TextView emailToPhone = findViewById(R.id.changePhoneNumber);
 
@@ -120,6 +124,7 @@ public class SignUp2Activity extends AppCompatActivity {
                     PreparedStatement pstm = connection.prepareStatement(query);
                     pstm.executeUpdate();
 
+                    saveUserId(userId);
                     result ="Sign up complete";
                 }
             } catch (Exception e) {
@@ -135,9 +140,13 @@ public class SignUp2Activity extends AppCompatActivity {
 
             this.cancel(true);
 
-            Intent myIntent = new Intent(getApplicationContext(),InterestActivity.class);
-            startActivity(myIntent);
-
+            if(result.equals("Sign up complete")){
+                errorTv.setVisibility(View.GONE);
+                Intent myIntent = new Intent(getApplicationContext(),InterestActivity.class);
+                startActivity(myIntent);
+            }else if(result.equals("Already exist!")){
+                errorTv.setVisibility(View.VISIBLE);
+            }
         }
     }
 

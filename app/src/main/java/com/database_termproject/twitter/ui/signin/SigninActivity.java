@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.database_termproject.twitter.R;
@@ -82,18 +83,14 @@ public class SigninActivity extends AppCompatActivity {
                     ResultSet rs1 = stmt1.executeQuery(s2);
 
                     if (rs1.next()) {
-                        result = "Wrong Password, Do it again";
+                        result = "잘못된 비밀번호입니다.";
                     }
                     else {
-                        result = "Wrong ID";
+                        result = "존재하지 않는 회원입니다.";
 
                     }
 
-
-                    PreparedStatement pstm = connection.prepareStatement(query);
-                    pstm.executeUpdate();
-
-                    result ="Sign in complete";
+                    return result;
                 }
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading school information", e);
@@ -109,7 +106,6 @@ public class SigninActivity extends AppCompatActivity {
 
             String[] array = result.split("!");
 
-
             if (array[0].equals("Login success")) {
                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(myIntent);
@@ -117,6 +113,9 @@ public class SigninActivity extends AppCompatActivity {
                 saveUserId(array[1]);
             }
             else {
+                TextView errorTv = findViewById(R.id.signin_error_tv);
+                errorTv.setText(result);
+
                 Log.d("success?", "wrong");
             }
 

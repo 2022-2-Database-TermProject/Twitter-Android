@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:hint="휴대폰 번호 또는 이메일 주소"
+        android:hint="아이디"
         app:boxBackgroundColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +74,16 @@
             tools:layout_editor_absoluteY="199dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/signin_error_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        style="@style/tv_12"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
+        app:layout_constraintStart_toStartOf="@id/textInputLayout2"
+        android:layout_marginTop="10dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogin"

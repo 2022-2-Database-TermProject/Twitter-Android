@@ -3,6 +3,7 @@ package com.database_termproject.twitter.ui.main.post_detail;
 import static com.database_termproject.twitter.utils.GlobalApplication.PASSWORD;
 import static com.database_termproject.twitter.utils.GlobalApplication.URL;
 import static com.database_termproject.twitter.utils.GlobalApplication.USER;
+import static com.database_termproject.twitter.utils.SharedPreferenceManagerKt.getUserId;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -100,7 +101,7 @@ public class PostDetailFragment extends BaseFragment<FragmentPostDetailBinding> 
         protected Boolean doInBackground(Void... voids) {
 
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-                String s2 = "insert into comment (post_id, content, user_id) values ('"+ post.post_id + "', '" + comment + "', '" + "yusin" +"');";
+                String s2 = "insert into comment (post_id, content, user_id) values ('"+ post.post_id + "', '" + comment + "', '" + getUserId()  +"');";
                 PreparedStatement pstm = connection.prepareStatement(s2);
                 pstm.executeUpdate();
 
@@ -169,7 +170,7 @@ public class PostDetailFragment extends BaseFragment<FragmentPostDetailBinding> 
 
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 int comment_id = integers[0];
-                String user_id = "yusin";
+                String user_id = getUserId();
 
                 // 기존에 좋아요 했는지 확인
                 Statement stmt = connection.createStatement();
