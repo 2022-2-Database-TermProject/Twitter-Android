@@ -58,7 +58,6 @@ class PostRVAdapter(val context: Context) : RecyclerView.Adapter<PostRVAdapter.V
             binding.itemPostImagesRv.adapter = homePostImageRVAdapter
 
             // 리트윗한 글인지 확인,
-            Log.d("Post", "postid: ${post.post_id} retweet: ${post.retweet_post}")
             if (post.retweet_post != 0) {
                 binding.itemPostRetweetInfoIv.visibility = View.VISIBLE
                 binding.itemPostRetweetInfoTv.visibility = View.VISIBLE

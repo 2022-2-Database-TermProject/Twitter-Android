@@ -49,7 +49,7 @@ public class PostActivity extends BaseActivity<ActivityPostBinding> {
     ArrayList<Uri> uriList = new ArrayList<>();
     ArrayList<String> imgList = new ArrayList<>();
 
-    String userId = "yusin";
+    String userId = "jiji";
     String content = "";
 
     PostAlbumRVAdapter postAlbumRVAdapter = null;

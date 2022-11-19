@@ -87,7 +87,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
 
                 // (1) 동일한 관심사를 가진 유저들 +1씩
                 Statement stmt = connection.createStatement();
-                String sql = "select distinct user_id from user_has_interest " +
+                String sql = "select user_id from user_has_interest " +
                         "where interest_id in (select interest_id from user_has_interest where user_id = \"" + user_id + "\") " +
                         "and user_id != \"" + user_id + "\";";
                 ResultSet rs = stmt.executeQuery(sql);

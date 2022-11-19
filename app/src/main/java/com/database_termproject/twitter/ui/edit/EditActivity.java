@@ -68,6 +68,7 @@ public class EditActivity extends BaseActivity<ActivityEditBinding> {
                 nickname= binding.editNicknameEt.getText().toString();
                 account_private = binding.editPublicSb.isChecked();
 
+                // 프로필 이미지 올리기
                 // 사용자 정보 수정 JDBC
                 new UpdateUserAsyncTask().execute();
             }
