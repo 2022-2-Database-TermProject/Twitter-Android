@@ -47,8 +47,19 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+        TextView findPWButton = findViewById(R.id.find_pw_btn);
+        findPWButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent myIntent = new Intent(getApplicationContext(), FindPassWordActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
         editTextID = findViewById(R.id.textInputEditTextID);
         editTextPW = findViewById(R.id.textInputEditTextPassword);
+
 
         loginButton = findViewById(R.id.buttonLogin);
         loginButton.setOnClickListener(new View.OnClickListener() {
