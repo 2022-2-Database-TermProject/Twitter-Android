@@ -126,7 +126,7 @@ public class MypageTweetFragment extends BaseFragment<FragmentMypageTweetBinding
             ResultSet rs = null;
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
                 Log.e("test", "2");
-                String sql = "select * from post, user where writer_id = \'" + user_id + "\' and id = \'" + user_id + "\'";
+                String sql = "select * from post, user where writer_id = \'" + user_id + "\' and id = \'" + user_id + "\' and retweet_post is null";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
 
