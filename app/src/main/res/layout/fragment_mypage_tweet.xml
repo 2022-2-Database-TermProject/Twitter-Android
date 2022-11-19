@@ -7,6 +7,7 @@
 
     <!--  RecyclerView  -->
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mypage_post_Rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -14,14 +15,5 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_post" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mypage - tweet"
-        style="@style/tv_eb_16"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

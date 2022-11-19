@@ -142,12 +142,13 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="찾기"
-        android:clickable="true"
+        android:id="@+id/find_pw_btn"
         style="@style/tv_14"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:text="찾기"
+        android:gravity="bottom"
         android:textColor="#1F9CF2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
